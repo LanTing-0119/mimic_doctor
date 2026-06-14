@@ -26,25 +26,22 @@ export function EndingScreen({
 }: EndingScreenProps) {
   const [paidAmount, setPaidAmount] = useState<string | null>(null)
   const [showFlowerThank, setShowFlowerThank] = useState(false)
-  const [totalPlays, setTotalPlays] = useState<number | null>(null)
+  const [totalPlays, setTotalPlays] = useState<number>(() => {
+    const stored = localStorage.getItem(COUNTER_KEY + '_total')
+    return stored ? Number(stored) : 0
+  })
 
   useEffect(() => {
-    const track = async () => {
-      const alreadyPlayed = localStorage.getItem(COUNTER_KEY)
-      const now = Date.now()
-      if (!alreadyPlayed || now - Number(alreadyPlayed) > 86400000) {
-        try {
-          await fetch('https://api.counterapi.dev/v1/beneath-the-white-coat/plays/up')
-          localStorage.setItem(COUNTER_KEY, String(now))
-        } catch {}
-      }
-      try {
-        const r = await fetch('https://api.counterapi.dev/v1/beneath-the-white-coat/plays')
-        const d = await r.json()
-        setTotalPlays(d.count)
-      } catch {}
+    const alreadyPlayed = localStorage.getItem(COUNTER_KEY)
+    const now = Date.now()
+    if (!alreadyPlayed || now - Number(alreadyPlayed) > 86400000) {
+      const newTotal = totalPlays + 1
+      localStorage.setItem(COUNTER_KEY, String(now))
+      localStorage.setItem(COUNTER_KEY + '_total', String(newTotal))
+      setTotalPlays(newTotal)
     }
-    track()
+    // Try remote counter in background (may not work in China)
+    fetch('https://api.counterapi.dev/v1/beneath-the-white-coat/plays/up', { mode: 'no-cors' }).catch(() => {})
   }, [])
 
   return (
@@ -111,9 +108,9 @@ export function EndingScreen({
           </div>
           <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-2.5">
             <p className="text-lg font-bold text-rose-400">
-              {totalPlays !== null ? totalPlays.toLocaleString() : '...'}
+              {totalPlays.toLocaleString()}
             </p>
-            <p className="text-slate-500 text-[10px]">总游玩人次</p>
+            <p className="text-slate-500 text-[10px]">我的游玩</p>
           </div>
         </div>
 
@@ -239,7 +236,7 @@ export function EndingScreen({
         </div>
 
         <p className="text-center text-slate-700 text-[10px]">
-          改编自真实案例 · 8种结局等你探索
+          改编自真实案例 · 已有 <span id="busuanzi_value_page_pv" className="text-slate-500">-</span> 人探索过此地
         </p>
       </div>
     </div>
