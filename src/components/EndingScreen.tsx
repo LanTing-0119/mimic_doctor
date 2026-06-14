@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import type { PlayerStats, GameRecord, CareerStage } from '../types'
+
+const AMOUNTS = ['花花', '2元', '5元', '10元', '自定义']
 
 interface EndingScreenProps {
   ending: { title: string; description: string; emoji: string }
@@ -19,6 +22,7 @@ export function EndingScreen({
   totalChoices,
   onRestart,
 }: EndingScreenProps) {
+  const [selectedAmount, setSelectedAmount] = useState<string | null>(null)
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 overflow-auto">
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
@@ -136,16 +140,55 @@ export function EndingScreen({
         </button>
 
         {/* Support */}
-        <div className="text-center space-y-1">
-          <p className="text-slate-600 text-[11px]">觉得有点意思？</p>
-          <a
-            href="https://afdian.com/a/beneath-the-white-coat"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-amber-500 hover:text-amber-400 text-sm font-medium transition-colors"
-          >
-            ☕️ 请创作者喝杯咖啡
-          </a>
+        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-4 space-y-4">
+          {!selectedAmount ? (
+            <>
+              <p className="text-slate-400 text-sm text-center">觉得有点意思？请作者喝杯咖啡 ☕️</p>
+              <div className="flex gap-2 justify-center flex-wrap">
+                {AMOUNTS.map((a) => (
+                  <button
+                    key={a}
+                    onClick={() => setSelectedAmount(a)}
+                    className="px-4 py-2 rounded-lg bg-slate-700/50 border border-slate-600/50 text-amber-300 text-sm font-medium hover:bg-slate-700 hover:border-amber-600/50 active:scale-95 transition-all"
+                  >
+                    {a}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-center">
+                <p className="text-slate-400 text-sm">
+                  你选了 <span className="text-amber-400 font-bold">{selectedAmount}</span>，扫码就行
+                </p>
+                <button
+                  onClick={() => setSelectedAmount(null)}
+                  className="text-slate-600 text-xs mt-1 hover:text-slate-400"
+                >
+                  重新选择
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="text-center space-y-1">
+                  <img
+                    src={`${import.meta.env.BASE_URL}wechat-pay.jpg`}
+                    alt="微信赞赏"
+                    className="w-full rounded-lg"
+                  />
+                  <p className="text-slate-500 text-[10px]">微信</p>
+                </div>
+                <div className="text-center space-y-1">
+                  <img
+                    src={`${import.meta.env.BASE_URL}alipay.jpg`}
+                    alt="支付宝"
+                    className="w-full rounded-lg"
+                  />
+                  <p className="text-slate-500 text-[10px]">支付宝</p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         <p className="text-center text-slate-700 text-[10px]">
