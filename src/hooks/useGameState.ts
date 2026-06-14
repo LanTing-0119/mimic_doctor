@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react'
-import type { GameState, GameEvent, GameRecord, PlayerStats, CareerStage, GamePhase } from '../types'
+import type { GameState, GameEvent, GameRecord, PlayerStats, CareerStage } from '../types'
 import { INITIAL_STATS } from '../types'
 import { allEvents } from '../data/events'
 
@@ -25,10 +25,6 @@ function clampStats(stats: PlayerStats): PlayerStats {
 function shuffleAndPick(events: GameEvent[], count: number): GameEvent[] {
   const shuffled = [...events].sort(() => Math.random() - 0.5)
   return shuffled.slice(0, count)
-}
-
-function getStageOrder(stage: CareerStage): CareerStage {
-  return stage
 }
 
 function getNextStage(stage: CareerStage): CareerStage | null {
@@ -98,8 +94,6 @@ function reducer(state: GameState, action: Action): GameState {
         statsEffect: option.statsEffect,
         wasRecommended: option.isRecommended,
       }
-
-      const isEarlyBadEnding = hasAnyZero(newStats)
 
       return {
         ...state,

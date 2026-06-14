@@ -39,11 +39,11 @@ function StatDiff({
 }
 
 export function OutcomeModal({
-  event,
+  event: _event,
   option,
   stats,
   oldStats,
-  stage,
+  stage: _stage,
   isLastEvent,
   onDismiss,
 }: OutcomeModalProps) {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { CareerStage, PlayerStats } from '../types'
+import type { CareerStage } from '../types'
 import { INITIAL_STATS, STAGE_NAMES } from '../types'
 
 interface StartScreenProps {

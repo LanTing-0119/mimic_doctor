@@ -12,8 +12,7 @@ export const allEvents: GameEvent[] = [
     isRealCase: true,
     imagePrompt:
       "中国医院门诊诊室，年轻女医生穿着白大褂正在低头写病历，桌对面的中年女性患者偷偷将手机放在桌上屏幕向上显示录音界面，医患之间气氛微妙，写实摄影风格，柔和诊室灯光",
-    realCaseRef: '复旦大学附属肿瘤医院真实事件，2025年3月上观新闻报道',imagePrompt:
-      '中国医院门诊诊室，年轻女医生穿着白大褂正在低头写病历，桌对面的中年女性患者偷偷将手机放在桌上屏幕向上显示录音界面，医患之间气氛微妙，写实摄影风格，柔和诊室灯光',
+    realCaseRef: '复旦大学附属肿瘤医院真实事件，2025年3月上观新闻报道',
     options: [
       {
         id: 'confront',
@@ -63,8 +62,7 @@ export const allEvents: GameEvent[] = [
     isRealCase: true,
     imagePrompt:
       "中国医院诊室，一个穿着时尚精神很好的年轻男子坐在医生对面，脸上带着讨好的笑容，双手合十做请求状，医生表情无奈，写实摄影风格",
-    realCaseRef: '丁香园论坛医生求助帖（高频事件）',imagePrompt:
-      '中国医院诊室，一个穿着时尚精神很好的年轻男子坐在医生对面，脸上带着讨好的笑容，双手合十做请求状，医生表情无奈，写实摄影风格',
+    realCaseRef: '丁香园论坛医生求助帖（高频事件）',
     options: [
       {
         id: 'agree',
