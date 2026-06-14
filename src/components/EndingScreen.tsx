@@ -161,7 +161,7 @@ export function EndingScreen({
             <>
               <div className="text-center">
                 <p className="text-slate-400 text-sm">
-                  你选了 <span className="text-amber-400 font-bold">{paidAmount}</span>，扫码就行
+                  你选了 <span className="text-amber-400 font-bold">{paidAmount}</span>
                 </p>
                 <button
                   onClick={() => setPaidAmount(null)}
@@ -170,14 +170,21 @@ export function EndingScreen({
                   重新选择
                 </button>
               </div>
+              <p className="text-slate-500 text-[11px] text-center leading-relaxed">
+                长按二维码 → 保存图片 →<br />打开微信/支付宝扫一扫 → 相册选取
+              </p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center space-y-1">
-                  <img src={`${import.meta.env.BASE_URL}wechat-pay.jpg`} alt="微信" className="w-full rounded-lg" />
-                  <p className="text-slate-500 text-[10px]">微信</p>
+                  <a href={`${import.meta.env.BASE_URL}wechat-pay.jpg`} download className="block">
+                    <img src={`${import.meta.env.BASE_URL}wechat-pay.jpg`} alt="微信赞赏码" className="w-full rounded-lg" />
+                  </a>
+                  <p className="text-slate-500 text-[10px]">微信 · 点图保存</p>
                 </div>
                 <div className="text-center space-y-1">
-                  <img src={`${import.meta.env.BASE_URL}alipay.jpg`} alt="支付宝" className="w-full rounded-lg" />
-                  <p className="text-slate-500 text-[10px]">支付宝</p>
+                  <a href={`${import.meta.env.BASE_URL}alipay.jpg`} download className="block">
+                    <img src={`${import.meta.env.BASE_URL}alipay.jpg`} alt="支付宝收款码" className="w-full rounded-lg" />
+                  </a>
+                  <p className="text-slate-500 text-[10px]">支付宝 · 点图保存</p>
                 </div>
               </div>
             </>
