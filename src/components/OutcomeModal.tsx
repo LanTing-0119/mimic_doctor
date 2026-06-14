@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import type { GameEvent, EventOption, PlayerStats, CareerStage } from '../types'
+import { Celebration } from './Celebration'
 
 interface OutcomeModalProps {
   event: GameEvent
@@ -39,7 +41,7 @@ function StatDiff({
 }
 
 export function OutcomeModal({
-  event: _event,
+  event,
   option,
   stats,
   oldStats,
@@ -47,7 +49,14 @@ export function OutcomeModal({
   isLastEvent,
   onDismiss,
 }: OutcomeModalProps) {
+  const [showCelebration, setShowCelebration] = useState(
+    event.category === '温暖瞬间',
+  )
   const hasZeroStat = stats.safety <= 0 || stats.mental <= 0 || stats.reputation <= 0
+
+  if (showCelebration) {
+    return <Celebration onDone={() => setShowCelebration(false)} />
+  }
 
   return (
     <div className="fixed inset-0 z-20 flex items-end sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm">

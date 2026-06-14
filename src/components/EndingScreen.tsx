@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { PlayerStats, GameRecord, CareerStage } from '../types'
+import { Celebration } from './Celebration'
 
 const AMOUNTS = ['花花', '2元', '5元', '10元', '自定义']
 
@@ -23,6 +24,7 @@ export function EndingScreen({
   onRestart,
 }: EndingScreenProps) {
   const [selectedAmount, setSelectedAmount] = useState<string | null>(null)
+  const [showSupportCelebration, setShowSupportCelebration] = useState(false)
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 overflow-auto">
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
@@ -148,12 +150,20 @@ export function EndingScreen({
                 {AMOUNTS.map((a) => (
                   <button
                     key={a}
-                    onClick={() => setSelectedAmount(a)}
+                    onClick={() => setShowSupportCelebration(true)}
                     className="px-4 py-2 rounded-lg bg-slate-700/50 border border-slate-600/50 text-amber-300 text-sm font-medium hover:bg-slate-700 hover:border-amber-600/50 active:scale-95 transition-all"
                   >
                     {a}
                   </button>
                 ))}
+                {showSupportCelebration && (
+                  <Celebration
+                    onDone={() => {
+                      setShowSupportCelebration(false)
+                      setSelectedAmount('花花')
+                    }}
+                  />
+                )}
               </div>
             </>
           ) : (

@@ -1,10 +1,8 @@
-import { useState, useCallback } from 'react'
 import type { GameState, PlayerStats, CareerStage } from '../types'
 import { STAGE_NAMES } from '../types'
 import { StatsBar } from './StatsBar'
 import { EventCard } from './EventCard'
 import { OutcomeModal } from './OutcomeModal'
-import { Celebration } from './Celebration'
 
 function OutcomeModalWrapper({
   lastChoice,
@@ -57,19 +55,6 @@ export function GameScreen({
   onDismissOutcome,
   onStartStage,
 }: GameScreenProps) {
-  const [celebrating, setCelebrating] = useState(false)
-
-  const handleChoose = useCallback(
-    (eventId: string, optionId: string) => {
-      setCelebrating(true)
-      setTimeout(() => {
-        onChoose(eventId, optionId)
-        setCelebrating(false)
-      }, 2000)
-    },
-    [onChoose],
-  )
-
   const needsNewStage =
     state.phase === 'PLAYING' && state.events.length === 0
 
@@ -133,11 +118,9 @@ export function GameScreen({
         <EventCard
           key={currentEvent.id}
           event={currentEvent}
-          onChoose={(optionId) => handleChoose(currentEvent.id, optionId)}
+          onChoose={(optionId) => onChoose(currentEvent.id, optionId)}
         />
       )}
-
-      {celebrating && <Celebration onDone={() => {}} />}
 
       {state.phase === 'OUTCOME' && state.lastChoice && (
         <OutcomeModalWrapper
