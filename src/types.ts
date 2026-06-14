@@ -6,7 +6,7 @@ export interface PlayerStats {
   legalRisk: number
 }
 
-export type CareerStage = '住院医师' | '主治医师' | '副主任医师'
+export type CareerStage = '实习医生' | '规培医生' | '住院总' | '主治医师'
 
 export type EventCategory =
   | '诊室暗流'
@@ -71,7 +71,8 @@ export const INITIAL_STATS: PlayerStats = {
 }
 
 export const STAGE_NAMES: Record<CareerStage, string> = {
-  '住院医师': '第一年住院医师',
-  '主治医师': '第三年主治医师',
-  '副主任医师': '第五年副主任医师',
+  '实习医生': '实习医生',
+  '规培医生': '第一年规培',
+  '住院总': '住院总医师',
+  '主治医师': '主治医师',
 }

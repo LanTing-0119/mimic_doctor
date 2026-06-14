@@ -28,8 +28,9 @@ function shuffleAndPick(events: GameEvent[], count: number): GameEvent[] {
 }
 
 function getNextStage(stage: CareerStage): CareerStage | null {
-  if (stage === '住院医师') return '主治医师'
-  if (stage === '主治医师') return '副主任医师'
+  if (stage === '实习医生') return '规培医生'
+  if (stage === '规培医生') return '住院总'
+  if (stage === '住院总') return '主治医师'
   return null
 }
 
@@ -40,7 +41,7 @@ function hasAnyZero(stats: PlayerStats): boolean {
 function createInitialState(): GameState {
   return {
     phase: 'CREATE',
-    stage: '住院医师',
+    stage: '实习医生',
     playerName: '',
     stats: { ...INITIAL_STATS },
     currentEventIndex: 0,

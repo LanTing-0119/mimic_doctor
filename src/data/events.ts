@@ -1,10 +1,10 @@
 import type { GameEvent } from '../types'
 
 export const allEvents: GameEvent[] = [
-  // ========== 住院医师阶段 ==========
+  // ========== 实习医生阶段 ==========
   {
     id: 'r1-recording',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '诊室暗流',
     title: '诊室里的手机',
     description: '门诊中，对面女患者将手机屏幕朝上放在桌上——"录音中"。她没告诉你。',
@@ -20,7 +20,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r2-fake-note',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '诊室暗流',
     title: '没病要假条',
     description: '年轻人精神很好，说腰疼要病假。查体全阴性。他笑说："单位非要假条，帮个忙吧。"',
@@ -35,7 +35,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r3-drunk-family',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '病房风暴',
     title: '深夜醉酒家属',
     description: '凌晨1点值班。护士跑来：3床儿子喝醉骂人，推倒了推车。护士不敢靠近病房。',
@@ -50,7 +50,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r4-refuse-sign',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '法律雷区',
     title: '就不签字',
     description: '胸痛患者，心电图ST压低。你让他住院，他说开药就行。要他签拒绝书，他说"不签，签了出事你们好推责任"。',
@@ -65,7 +65,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r5-complaint-attitude',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '制度博弈',
     title: '被投诉态度差',
     description: '医务科通知你去。一周前患者投诉你"态度不耐烦"还发了微博。那天你看了60多个病人。',
@@ -80,7 +80,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r6-red-envelope',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '手术室边缘',
     title: '术前红包',
     description: '明天你主刀的手术，患者丈夫在走廊塞给你厚信封："一点心意。"妻子在旁眼巴巴看着。',
@@ -95,7 +95,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r7-over-testing',
-    stage: '住院医师',
+    stage: '实习医生',
     category: '诊室暗流',
     title: '检查开多了？',
     description: '腹痛患者，你开血常规B超心电图。他大声说："开这么多？有提成是吧？"候诊区全看过来。',
@@ -109,10 +109,10 @@ export const allEvents: GameEvent[] = [
     ],
   },
 
-  // 住院医师 · 温暖瞬间（仅当声誉达标时触发——你善待过患者）
+  // 规培医生 · 温暖瞬间
   {
     id: 'r8-thank-letter',
-    stage: '住院医师',
+    stage: '规培医生',
     category: '温暖瞬间',
     title: '一封手写信',
     description: '两周前你顶着压力坚持为一位老爷爷做了详细的病情解释。今天他出院，从旧布包里掏出信塞给你："医生，我字不好，就是想谢谢你。"',
@@ -127,7 +127,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'r9-night-shift',
-    stage: '住院医师',
+    stage: '规培医生',
     category: '温暖瞬间',
     title: '凌晨三点',
     description: '你之前站出来护过那位被家属推搡的护士。今晚你连值第二个夜班趴在桌上歇气，她默默放了杯热豆浆和面包在你旁边。',
@@ -140,10 +140,10 @@ export const allEvents: GameEvent[] = [
     ],
   },
 
-  // ========== 主治医师阶段 ==========
+  // ========== 规培医生阶段 ==========
   {
     id: 'a1-mob-besiege',
-    stage: '主治医师',
+    stage: '规培医生',
     category: '病房风暴',
     title: '来了几十个人',
     description: '你管的老人去世了。第二天30多人来病区拉横幅烧纸，喊"医生出来"，索赔50万。护士全躲进治疗室。',
@@ -158,7 +158,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'a2-viral-video',
-    stage: '主治医师',
+    stage: '规培医生',
     category: '网络暴力',
     title: '15秒的审判',
     description: '刷到自己的视频——你低头写病历的15秒，配文"对患儿态度冷漠"。3万点赞，评论炸了。',
@@ -173,7 +173,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'a3-postop-complication',
-    stage: '主治医师',
+    stage: '规培医生',
     category: '手术室边缘',
     title: '"手术失败了"',
     description: '直肠癌术后第4天出现吻合口漏——发生率5-8%，同意书已告知。但家属大喊"手术失败了"，儿子掏出手机录像。',
@@ -188,7 +188,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'a4-scapegoat',
-    stage: '主治医师',
+    stage: '规培医生',
     category: '制度博弈',
     title: '谁来背锅',
     description: '同事定的方案你执行，患者不良反应被投诉。他在讨论时推给你："我只是建议，最终是他确认的。"主任看着你。',
@@ -201,9 +201,11 @@ export const allEvents: GameEvent[] = [
       { id: 'fact-based', label: '先处理患者责任内部再查', isDefault: false, outcome: '你稳住患者情况再私下找同事："下次有分歧先沟通。"他沉默后点头。', statsEffect: { reputation: +5, support: +5, mental: +3 }, isRecommended: true, tip: '把矛头从"谁错"转向"怎么解决"。', },
     ],
   },
+
+  // ========== 住院总阶段 ==========
   {
     id: 'a5-refuse-admit',
-    stage: '主治医师',
+    stage: '住院总',
     category: '法律雷区',
     title: '"死了也不怪你"',
     description: '胸痛患者明确心梗，你让他紧急住院。他说"没事吃吃药就行，我弟做支架后更差了"。妻子在旁边急哭了。',
@@ -218,7 +220,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'a6-private-settle',
-    stage: '主治医师',
+    stage: '住院总',
     category: '制度博弈',
     title: '"赔点钱算了"',
     description: '治疗并发症被投诉。医务科说："技术上你没错，但家属闹得凶找了媒体。院里建议三五万私了，你配合承认沟通不到位。"',
@@ -233,7 +235,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'a7-media-ambush',
-    stage: '主治医师',
+    stage: '住院总',
     category: '网络暴力',
     title: '门口的摄像机',
     description: '下班出医院，话筒和摄像机怼过来："我们是电视台，有家属反映医疗过错，请回应。"红灯亮，路人围观。',
@@ -246,10 +248,10 @@ export const allEvents: GameEvent[] = [
     ],
   },
 
-  // 主治医师 · 温暖瞬间
+  // 住院总 · 温暖瞬间
   {
     id: 'a8-trust',
-    stage: '主治医师',
+    stage: '住院总',
     category: '温暖瞬间',
     title: '从误解到信任',
     description: '那个每次查房都录音的家属，今天突然找到你："医生，之前对不起。我天天看你那么晚还在，是真为病人好。"',
@@ -263,7 +265,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'a9-mentor',
-    stage: '主治医师',
+    stage: '住院总',
     category: '温暖瞬间',
     title: '老主任的托付',
     description: '退休前老主任把你叫到办公室："最难的这个病人想交给你。你不一样，你是真把病人当人看。"',
@@ -276,10 +278,10 @@ export const allEvents: GameEvent[] = [
     ],
   },
 
-  // ========== 副主任医师阶段 ==========
+  // ========== 住院总阶段 ==========
   {
     id: 'c1-sustained-cyberbully',
-    stage: '副主任医师',
+    stage: '住院总',
     category: '网络暴力',
     title: '围猎',
     description: '复杂肝胆手术后恢复不理想。家属在短视频平台持续发了两个月——15个账号近百条视频。举报48次仅删19条。门诊量降60%。你开始害怕看手机。',
@@ -294,7 +296,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'c2-health-commission',
-    stage: '副主任医师',
+    stage: '主治医师',
     category: '制度博弈',
     title: '上面来人了',
     description: '家属持续向卫健委投诉你过度医疗。调查组来院调病历要你当面说明。提问方式像预设你有问题。主任说最近在抓典型。',
@@ -309,7 +311,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'c3-criminal-charge',
-    stage: '副主任医师',
+    stage: '主治医师',
     category: '法律雷区',
     title: '立案通知书',
     description: '三年前治疗的患者遗留功能障碍。家属以"医疗事故罪"报案。你收到公安局《接受案件回执》——刑事调查已启动。',
@@ -324,7 +326,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'c4-colleague-misconduct',
-    stage: '副主任医师',
+    stage: '主治医师',
     category: '手术室边缘',
     title: '台上的同事',
     description: '你主刀四级手术，麻醉医生反应迟钝——像没睡好老打哈欠。患者生命体征波动时他没能及时报告。你不得不暂停提醒他。',
@@ -339,7 +341,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'c5-pediatric-conflict',
-    stage: '副主任医师',
+    stage: '主治医师',
     category: '病房风暴',
     title: '失控的奶奶',
     description: '3岁患儿血管细，护士扎了两针。奶奶突然推开护士打掉治疗盘——针头散一地。护士在哭，孩子大哭，爷爷帮腔。',
@@ -351,10 +353,10 @@ export const allEvents: GameEvent[] = [
       { id: 'firm-boundary', label: '挡在护士前再动手就报警了', isDefault: false, outcome: '奶奶被镇住。你亲自一针扎上后说"心疼孙子理解，但推那一下——换您女儿被推呢？"她沉默后去道歉。', statsEffect: { reputation: +10, support: +15, safety: +10, mental: +5 }, isRecommended: true, tip: '保护团队第一。底线坚定但给台阶。', },
     ],
   },
-  // 副主任医师 · 温暖瞬间
+  // ========== 主治医师阶段 ==========
   {
-    id: 'c7-return',
-    stage: '副主任医师',
+    id: 'c2-health-commission',
+    stage: '主治医师',
     category: '温暖瞬间',
     title: '十年后的鞠躬',
     description: '门诊，一个年轻人带孩子进来对你深深鞠躬："医生，十年前您救了我妈。今天带儿子来——看看救命恩人长什么样。"',
@@ -368,7 +370,7 @@ export const allEvents: GameEvent[] = [
   },
   {
     id: 'c6-off-label',
-    stage: '副主任医师',
+    stage: '主治医师',
     category: '法律雷区',
     title: '超说明书的代价',
     description: '你为罕见病患者超说明书用药——指南推荐但中国未获批该适应症，已签知情同意。出现严重不良反应后，律师抓住"超说明书"指控你违法。',
@@ -376,8 +378,23 @@ export const allEvents: GameEvent[] = [
     realCaseRef: '《医师法》第29条；多地超说明书用药纠纷',
     imagePrompt: "医药专业场景，一位穿白大褂医生表情忧虑看手中药品说明书和病历，桌上散落医学指南书籍和知情同意文件，窗外柔和光线，写实摄影风格，竖屏构图",
     options: [
-      { id: 'panic-settle', label: '趁事没闹大同意赔钱和解', isDefault: true, outcome: '赔30万。圈内传开"某某用药出事赔钱"。同行避开你。记录影响医保考核。', statsEffect: { reputation: -25, legalRisk: -10, mental: -15 }, isRecommended: false, tip: '超说明书纠纷赔钱影响整个领域共识。', },
-      { id: 'defend-guidelines', label: '以指南和知情同意书为证据', isDefault: false, outcome: '你提交指南、知情同意书、药事会备案。律师递交30页答辩。鉴定：用药符合共识。法院驳回。', statsEffect: { reputation: +15, safety: +20, legalRisk: -15, mental: +10 }, isRecommended: true, tip: '《医师法》第29条保护合规的超说明书用药。', },
+      { id: 'panic-settle', label: '趁事没闹大同意赔钱和解', isDefault: true, outcome: '赔30万。圈内传开"某某用药出事赔钱"。同行避开你。记录影响医保考核。', statsEffect: { reputation: -25, legalRisk: -10, mental: -15 }, isRecommended: false, tip: '', },
+      { id: 'defend-guidelines', label: '以指南和知情同意书为证据', isDefault: false, outcome: '你提交指南、知情同意书、药事会备案。律师递交30页答辩。鉴定：用药符合共识。法院驳回。', statsEffect: { reputation: +15, safety: +20, legalRisk: -15, mental: +10 }, isRecommended: true, tip: '', },
+    ],
+  },
+
+  // 主治医师 · 温暖瞬间
+  {
+    id: 'c7-return',
+    stage: '主治医师',
+    category: '温暖瞬间',
+    title: '十年后的鞠躬',
+    description: '门诊，一个年轻人带孩子进来对你深深鞠躬："医生，十年前您救了我妈。今天带儿子来——看看救命恩人长什么样。"',
+    isRealCase: true,
+    minStats: { reputation: 65, mental: 50 },
+    imagePrompt: '医院门诊诊室，一个年轻父亲带着小男孩对着中年医生深深鞠躬，医生表情感动眼含泪光，窗外阳光温暖洒入，医患真情动人瞬间，竖屏构图',
+    options: [
+      { id: 'humble', label: '扶起他眼湿了蹲下看孩子', isDefault: true, outcome: '小男孩怯怯说"谢谢叔叔救奶奶"。你蹲下摸摸他头。那一下午你看每个病人都多了几分耐心。', statsEffect: { reputation: +10, mental: +10 }, isRecommended: true, tip: '', },
     ],
   },
 ]

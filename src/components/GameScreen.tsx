@@ -60,21 +60,22 @@ export function GameScreen({
 
   if (needsNewStage) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 flex items-center justify-center px-4"
-        style={state.stage !== '住院医师' ? {} : {}}>
+      <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center space-y-6">
           <div className="text-6xl">
-            {state.stage === '主治医师' ? '📈' : '🏅'}
+            {state.stage === '主治医师' ? '🏅' : state.stage === '住院总' ? '📋' : '🩺'}
           </div>
           <h2 className="text-2xl font-bold text-white">
-            晋升：{STAGE_NAMES[state.stage]}
+            {STAGE_NAMES[state.stage]}
           </h2>
           <p className="text-slate-400 text-sm leading-relaxed">
             {state.stage === '主治医师'
-              ? '你升了主治。责任更大了，面对的患者和家属也更复杂了。新的挑战在等着你。'
-              : state.stage === '副主任医师'
-                ? '你成为了副主任医师。现在你是科室的中坚力量，更多人盯着你——患者、家属、媒体、卫健委。每一步都要谨慎。'
-                : '你的行医生涯开始了。记住：医术是基础，但保护好自己同样重要。'}
+              ? '你升了主治。现在你是独当一面的医生，更多人盯着你——患者、家属、律师、卫健委。每一步都要算好。'
+              : state.stage === '住院总'
+                ? '住院总。全院最忙的人。你不再只是干活——你要做决策，要带人，要直面最棘手的冲突。'
+                : state.stage === '规培医生'
+                  ? '你通过了实习期，进入规培。轮转各科室，你会遇到更多样的病人和家属——有些是你的贵人，有些是你的劫。'
+                  : '你的第一天。白大褂是新的，听诊器是刚买的。没有人告诉你——这身白衣下，藏着什么。'}
           </p>
           <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4 text-left space-y-2">
             <p className="text-slate-400 text-sm">当前属性：</p>
