@@ -178,13 +178,13 @@ export function EndingScreen({
                   <a href={`${import.meta.env.BASE_URL}wechat-pay.jpg`} download className="block">
                     <img src={`${import.meta.env.BASE_URL}wechat-pay.jpg`} alt="微信赞赏码" className="w-full rounded-lg" />
                   </a>
-                  <p className="text-slate-500 text-[10px]">微信 · 点图保存</p>
+                  <p className="text-slate-500 text-[10px]">微信 · 长按保存</p>
                 </div>
                 <div className="text-center space-y-1">
                   <a href={`${import.meta.env.BASE_URL}alipay.jpg`} download className="block">
                     <img src={`${import.meta.env.BASE_URL}alipay.jpg`} alt="支付宝收款码" className="w-full rounded-lg" />
                   </a>
-                  <p className="text-slate-500 text-[10px]">支付宝 · 点图保存</p>
+                  <p className="text-slate-500 text-[10px]">支付宝 · 长按保存</p>
                 </div>
               </div>
             </>
