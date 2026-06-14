@@ -117,16 +117,22 @@ export function EndingScreen({
           ))}
         </div>
 
+        {/* Ending hint */}
+        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-4 text-center space-y-2">
+          <p className="text-slate-400 text-sm">你只看到了 <span className="text-amber-400 font-bold">1/8</span> 种结局</p>
+          <p className="text-slate-600 text-xs">不同的选择会带你走向完全不同的命运——<br />也许下次，你能活着看到天亮。</p>
+        </div>
+
         {/* Restart */}
         <button
           onClick={onRestart}
-          className="w-full py-4 rounded-xl bg-emerald-600 text-white font-bold text-lg hover:bg-emerald-500 active:scale-[0.98] transition-all shadow-lg shadow-emerald-600/20"
+          className="w-full py-4 rounded-xl bg-emerald-700 text-white font-bold text-lg hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-lg shadow-emerald-900/30"
         >
-          重新开始
+          再值一次班
         </button>
 
-        <p className="text-center text-slate-700 text-xs">
-          本游戏场景改编自真实医患纠纷案例，仅供医学教育参考
+        <p className="text-center text-slate-700 text-[10px]">
+          改编自真实案例 · 8种结局等你探索
         </p>
       </div>
     </div>
