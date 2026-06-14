@@ -1,8 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { PlayerStats, GameRecord, CareerStage } from '../types'
 import { Celebration } from './Celebration'
 
 const AMOUNTS = ['花花', '2元', '5元', '10元', '自定义']
+
+// Preload payment QR images on mount so they're cached
+function usePreloadImages() {
+  useEffect(() => {
+    const base = import.meta.env.BASE_URL
+    for (const fn of ['wechat-pay.jpg', 'alipay.jpg']) {
+      const img = new Image()
+      img.src = base + fn
+    }
+  }, [])
+}
 
 interface EndingScreenProps {
   ending: { title: string; description: string; emoji: string }
@@ -25,6 +36,7 @@ export function EndingScreen({
 }: EndingScreenProps) {
   const [paidAmount, setPaidAmount] = useState<string | null>(null)
   const [showFlowerThank, setShowFlowerThank] = useState(false)
+  usePreloadImages()
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 overflow-auto">
