@@ -7,210 +7,75 @@ export const allEvents: GameEvent[] = [
     stage: '住院医师',
     category: '诊室暗流',
     title: '诊室里的手机',
-    description:
-      '上午门诊，你看完第15个病人正在写病历。不经意抬头，发现坐在对面的中年女性患者将手机屏幕朝上放在桌上，屏幕显示"录音中"三个字。你愣了一下——她没有提前告知你要录音。',
+    description: '门诊中，对面女患者将手机屏幕朝上放在桌上——"录音中"。她没告诉你。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院门诊诊室，年轻女医生穿着白大褂正在低头写病历，桌对面的中年女性患者偷偷将手机放在桌上屏幕向上显示录音界面，医患之间气氛微妙，写实摄影风格，柔和诊室灯光",
-    realCaseRef: '复旦大学附属肿瘤医院真实事件，2025年3月上观新闻报道',
+    realCaseRef: '复旦大学附属肿瘤医院真实事件，2025',
+    imagePrompt: '中国医院门诊诊室，年轻女医生穿着白大褂正在低头写病历，桌对面的中年女性患者偷偷将手机放在桌上屏幕向上显示录音界面，医患之间气氛微妙，写实摄影风格，柔和诊室灯光',
     options: [
-      {
-        id: 'confront',
-        label: '直接制止：「请你马上停止录音，把录音删掉」',
-        outcome:
-          '患者立即变脸：「我录我自己看病怎么了？你是不是心虚？」声音越来越大，候诊区的病人纷纷探头张望。最终患者到医务科投诉你"态度恶劣"。',
-        statsEffect: { safety: -5, mental: -10, legalRisk: +10 },
-        isRecommended: false,
-        tip: '直接对抗容易被反投诉"服务态度差"，在公开场合尤其危险。',
-      },
-      {
-        id: 'leave',
-        label: '停止看诊，离开诊室，请门诊部介入处理',
-        outcome:
-          '你平静地起身离开。门诊部介入后告知患者：医院规定未经许可不得录音，如需录音需向宣传科报备。患者最终删除录音，但整个过程浪费了30分钟，候诊病人积压了5个。',
-        statsEffect: { safety: +5, support: +5, reputation: -3 },
-        isRecommended: true,
-        tip: '把问题交给制度处理，不要个人对抗。这是丁香园版主的"教科书级操作"。',
-      },
-      {
-        id: 'ignore',
-        label: '装作没看见，继续看诊',
-        outcome:
-          '患者完成录音后满意离开。两天后，一段被剪辑过的录音出现在抖音上，断章取义地呈现了你的部分言论，配文"现在的医生都这么敷衍吗"。医务科找你谈话，要求写情况说明。',
-        statsEffect: { reputation: -15, legalRisk: +20, mental: -15 },
-        isRecommended: false,
-        tip: '86.3%的医生曾遭遇偷拍偷录。放任不管会被断章取义、恶意剪辑。',
-      },
-      {
-        id: 'explain',
-        label: '温和解释：「我理解你想记录，但麻烦提前跟我说一声，我们可以一起确认重点」',
-        outcome:
-          '患者愣了一下，说"医生我不是不信你，就是记不住"。你微笑说"没关系，等下我把重点写在病历上你拍下来就行"。患者主动关掉录音，后续配合度很高，临走还说了声谢谢。',
-        statsEffect: { reputation: +5, mental: +3, safety: +5 },
-        isRecommended: true,
-        tip: '很多患者录音是因为记不住医嘱。主动提供书面记录，把对抗变成协作。',
-      },
+      { id: 'confront', label: '要求她停录并删除', isDefault: true, outcome: '她大喊"心虚了吧"，候诊区全看过来。随后投诉你态度差。', statsEffect: { safety: -5, mental: -10, legalRisk: +10 }, isRecommended: false, tip: '直接对抗最容易被反投诉。', },
+      { id: 'leave', label: '离开诊室让门诊部介入', isDefault: false, outcome: '门诊部告知未经许可不得录音。她删了，但你也浪费了半小时。', statsEffect: { safety: +5, support: +5, reputation: -3 }, isRecommended: true, tip: '交给制度处理，不对抗不妥协。', },
+      { id: 'ignore', label: '继续看病当作没看见', isDefault: false, outcome: '两天后剪过的录音上抖音，标题"医生这么敷衍"。医务科找你了。', statsEffect: { reputation: -15, legalRisk: +20, mental: -15 }, isRecommended: false, tip: '86%的医生被偷录过。放任等于给对方剪辑素材。', },
+      { id: 'explain', label: '温和问是否想记录医嘱', isDefault: false, outcome: '她说怕记不住。你微笑说写完病历让她拍照。她主动关掉录音。', statsEffect: { reputation: +5, mental: +3, safety: +5 }, isRecommended: true, tip: '主动提供书面记录，把对抗变协作。', },
     ],
   },
   {
     id: 'r2-fake-note',
     stage: '住院医师',
     category: '诊室暗流',
-    title: '「就开两天病假」',
-    description:
-      '一个30岁左右的男子走进诊室，看起来精神很好。他说自己"腰椎间盘突出犯了，需要休息"。你查体后发现腰椎活动度正常，直腿抬高试验阴性，没有任何神经根受压体征。他笑着说："医生你就给我开两天病假条吧，我们单位必须要医院的假条。"',
+    title: '没病要假条',
+    description: '年轻人精神很好，说腰疼要病假。查体全阴性。他笑说："单位非要假条，帮个忙吧。"',
     isRealCase: true,
-    imagePrompt:
-      "中国医院诊室，一个穿着时尚精神很好的年轻男子坐在医生对面，脸上带着讨好的笑容，双手合十做请求状，医生表情无奈，写实摄影风格",
     realCaseRef: '丁香园论坛医生求助帖（高频事件）',
+    imagePrompt: '中国医院诊室，一个穿着时尚精神很好的年轻男子坐在医生对面，脸上带着讨好的笑容，双手合十做请求状，医生表情无奈，写实摄影风格',
     options: [
-      {
-        id: 'agree',
-        label: '看他态度不错，开两天假条打发走',
-        outcome:
-          '一个月后，该男子的单位人事科打电话到医院核实假条。医务科查到是你开的，发现病历记录和假条诊断依据不足。你在科室晨会上被主任点名批评，并记入个人档案。',
-        statsEffect: { reputation: -20, legalRisk: +15, support: -10 },
-        isRecommended: false,
-        tip: '虚假医疗文书是红线。哪怕只有一次，也可能毁掉你的职业信誉。',
-      },
-      {
-        id: 'refuse-strict',
-        label: '严肃拒绝：「你没有病，我不能给你开假条」',
-        outcome:
-          '男子脸色一变："你什么态度？我说我腰疼你不信是吧？把你们主任叫来！"他在诊室里大吵大闹，直到保安来才被请走。事后他向卫健委投诉你"拒绝诊疗"。虽然调查后认定你无过错，但整个过程让你心力交瘁。',
-        statsEffect: { mental: -5, legalRisk: +5, safety: -5 },
-        isRecommended: false,
-        tip: '直接说"你没病"是沟通大忌。患者会觉得被否定和羞辱。',
-      },
-      {
-        id: 'explain-doc',
-        label: '耐心解释查体结果，建议他去康复科或骨科进一步评估，但明确表示目前查体无阳性发现无法出具病假证明',
-        outcome:
-          '男子虽然不太高兴，但看到你认真的态度，最终嘟囔着"行吧行吧"离开了。你把查体结果和沟通过程详细记录在病历中。后来没有接到投诉。',
-        statsEffect: { reputation: +3, legalRisk: -5, mental: +2 },
-        isRecommended: true,
-        tip: '坚持原则但留有余地。完整记录病历是你最好的护身符。',
-      },
+      { id: 'agree', label: '举手之劳给他开两天', isDefault: true, outcome: '他单位来核实假条。医务科查依据不足，晨会点名批评。', statsEffect: { reputation: -20, legalRisk: +15, support: -10 }, isRecommended: false, tip: '虚假医疗文书一票否决。', },
+      { id: 'refuse-strict', label: '告知无病不予开具证明', isDefault: false, outcome: '他当场翻脸喊主任，大闹诊室。事后投诉到卫健委。折腾半个月。', statsEffect: { mental: -5, legalRisk: +5, safety: -5 }, isRecommended: false, tip: '"你没病"是最得罪人的表达。', },
+      { id: 'explain-doc', label: '解释查体结果后拒绝开具', isDefault: false, outcome: '他嘟囔走了。你把查体和沟通过程完整记入病历。后来无投诉。', statsEffect: { reputation: +3, legalRisk: -5, mental: +2 }, isRecommended: true, tip: '病历是你最好的护身符。', },
     ],
   },
   {
     id: 'r3-drunk-family',
     stage: '住院医师',
     category: '病房风暴',
-    title: '深夜的醉酒家属',
-    description:
-      '凌晨1点，你值夜班。护士跑来告诉你，3床患者的陪护家属（患者的儿子）喝醉了酒，因为护士先给隔壁床换药而骂护士"不负责"，满嘴脏话，还推了一把护士站的推车。护士吓得不敢靠近那个病房。',
+    title: '深夜醉酒家属',
+    description: '凌晨1点值班。护士跑来：3床儿子喝醉骂人，推倒了推车。护士不敢靠近病房。',
     isRealCase: true,
-    imagePrompt:
-      "深夜中国医院病房走廊，护士站前，一个醉酒的男子面红耳赤正在推搡护士站的推车，护士惊恐后退，走廊灯光昏暗，紧张气氛，写实电影风格",
-    realCaseRef: '医脉通报道：值班医生教科书式应对醉酒家属，2025年',options: [
-      {
-        id: 'go-alone',
-        label: '一个人过去理论：「这里是医院，请你安静，否则请你出去」',
-        outcome:
-          '醉酒男子看到你一个人来，更加嚣张，一把抓住你的白大褂领子："你算老几？"幸好隔壁病房的患者家属听到动静赶来帮忙拉开。你的白大褂被撕破，脖子上有抓痕。虽然报了警，但对方酒醒后只是被批评教育。',
-        statsEffect: { safety: -20, mental: -15, reputation: -5 },
-        isRecommended: false,
-        tip: '永远不要单独面对醉酒/情绪激动的家属。安全永远是第一位的。',
-      },
-      {
-        id: 'call-security',
-        label: '先通过对讲机叫保安，然后打110，等支援到了再一起过去',
-        outcome:
-          '5分钟内6名保安到位，你拨打110后7分钟派出所民警赶到。在多名保安和警察的陪同下，醉酒男子被带离病房。第二天酒醒后他妻子带着他来道歉，说"昨晚喝多了，不好意思"。你平静地说："喝酒不是借口，如果再发生我们会直接报警。"',
-        statsEffect: { safety: +10, support: +8, mental: +5, reputation: +5 },
-        isRecommended: true,
-        tip: '教科书级操作：叫保安→报警→联合支援→绝不单独对峙。这是保护自己最基本的原则。',
-      },
-      {
-        id: 'avoid',
-        label: '让护士先去别的病房忙，等家属酒醒了再说',
-        outcome:
-          '醉酒男子在病房里继续吵闹，干扰了其他患者休息。一位老年患者因为噪音和紧张导致血压升高，需要紧急处理。第二天主任找你谈话："昨晚的情况你应该第一时间处理，而不是回避。"',
-        statsEffect: { support: -10, reputation: -10, mental: -5 },
-        isRecommended: false,
-        tip: '不作为也是一种选择，但对于干扰医疗秩序的行为，你有责任采取行动——前提是确保自身安全。',
-      },
+    realCaseRef: '医脉通报道：值班医生教科书式应对醉酒家属，2025',
+    imagePrompt: '深夜中国医院病房走廊，护士站前，一个醉酒的男子面红耳赤正在推搡护士站的推车，护士惊恐后退，走廊灯光昏暗，紧张气氛，写实电影风格',
+    options: [
+      { id: 'go-alone', label: '独自过去厉声警告他', isDefault: true, outcome: '他见你一人更嚣张，抓住你衣领。白大褂撕破，颈部抓伤。', statsEffect: { safety: -20, mental: -15, reputation: -5 }, isRecommended: false, tip: '别单独面对醉酒者。', },
+      { id: 'call-security', label: '先叫保安再报警后去', isDefault: false, outcome: '5分钟保安到，7分钟警察到。醉汉被带走。次日酒醒来道歉。', statsEffect: { safety: +10, support: +8, mental: +5, reputation: +5 }, isRecommended: true, tip: '叫保安→报警→等支援。绝不独自上前。', },
+      { id: 'avoid', label: '让护士先避避等他酒醒', isDefault: false, outcome: '他继续闹，老患者被吵得血压飙升。主任第二天找你谈话。', statsEffect: { support: -10, reputation: -10, mental: -5 }, isRecommended: false, tip: '不作为是把风险转嫁他人。', },
     ],
   },
   {
     id: 'r4-refuse-sign',
     stage: '住院医师',
     category: '法律雷区',
-    title: '拒绝签字的患者',
-    description:
-      '58岁男性患者，胸痛待查，心电图示ST段压低，肌钙蛋白轻度升高。你告知需要立即住院进一步检查和治疗。患者说"我没事，就是有点胸闷，开点药就行"。你反复解释风险，他仍然坚持不住院。你需要他签《拒绝住院知情同意书》，但他拒绝签字："我不签，签了万一出事你们就推卸责任了。"',
+    title: '就不签字',
+    description: '胸痛患者，心电图ST压低。你让他住院，他说开药就行。要他签拒绝书，他说"不签，签了出事你们好推责任"。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院诊室，58岁男性患者双臂交叉抱胸，表情倔强拒绝签字，医生拿着知情同意书身体前倾耐心解释，患者妻子站在一旁神情焦虑，写实摄影风格",
-    realCaseRef: '真实判决：患者拒绝住院5天后猝死，家属起诉医院，法院判医院承担10%责任（因无拒绝住院签字记录），2026年医脉通报道',options: [
-      {
-        id: 'let-go',
-        label: '既然他不签，那就算了，嘱其"有不适随时来"让他走',
-        outcome:
-          '5天后患者在家中因急性心肌梗死猝死。家属起诉医院，指控"医生没有尽到告知义务"。因为病历中没有患者拒绝住院的签字记录，法院认定医院存在过失，判决赔偿14万余元。你的名字出现在判决书上。',
-        statsEffect: { legalRisk: +30, reputation: -15, mental: -20 },
-        isRecommended: false,
-        tip: '口头告知不具法律效力。没有签字，等于没有告知——这是血的教训。',
-      },
-      {
-        id: 'document',
-        label: '在病历中详细记录告知内容、患者拒绝的原因，请在场的护士作为见证人签字',
-        outcome:
-          '你在病历中写下："已向患者充分告知急性冠脉综合征风险及住院必要性，患者表示理解但仍拒绝住院。已建议如有胸痛加重立即拨打120。在场见证人：护士张某。"你和护士都签了字。一个月后患者真的心梗了，但因为当时病历记录完整，家属的投诉被医务科驳回。',
-        statsEffect: { safety: +10, legalRisk: -10, reputation: +3 },
-        isRecommended: true,
-        tip: '法律上，病历记录+见证人签字虽然不是患者本人的签字，但仍是强有力的证据。比什么都没有好太多。',
-      },
-      {
-        id: 'call-family',
-        label: '打电话联系患者家属，让家属来医院一起沟通',
-        outcome:
-          '患者的女儿赶到医院。你详细解释了父亲的病情和风险。女儿听后坚决要求父亲住院。虽然患者本人还是不太情愿，但在女儿坚持下同意住院。住院当晚患者出现室性心动过速，因在院及时抢救，预后良好。出院时患者专门来感谢你。',
-        statsEffect: { reputation: +10, mental: +5, support: +3, safety: +5 },
-        isRecommended: true,
-        tip: '当患者本人不配合时，联系家属是合法且有效的策略。《民法典》允许在紧急情况下向近亲属告知病情。',
-      },
+    realCaseRef: '真实判决：无拒绝住院签字记录，法院判赔14万',
+    imagePrompt: '中国医院诊室，58岁男性患者双臂交叉抱胸，表情倔强拒绝签字，医生拿着知情同意书身体前倾耐心解释，患者妻子站在一旁神情焦虑，写实摄影风格',
+    options: [
+      { id: 'let-go', label: '不签也罢嘱其不适随诊', isDefault: true, outcome: '5天后心梗猝死。家属起诉。无签字记录，法院判你赔14万。', statsEffect: { legalRisk: +30, reputation: -15, mental: -20 }, isRecommended: false, tip: '没签字就是没告知。', },
+      { id: 'document', label: '病历详记请护士见证签字', isDefault: false, outcome: '你写下告知全过程，护士作证签字。后来患者心梗，投诉被驳回。', statsEffect: { safety: +10, legalRisk: -10, reputation: +3 }, isRecommended: true, tip: '病历记录+见证签字有法律效力。', },
+      { id: 'call-family', label: '打电话叫来患者女儿', isDefault: false, outcome: '女儿赶到坚持让父亲住院。当晚室速发作，在院抢救及时预后好。', statsEffect: { reputation: +10, mental: +5, support: +3, safety: +5 }, isRecommended: true, tip: '本人不配合找近亲属是合法策略。', },
     ],
   },
   {
     id: 'r5-complaint-attitude',
     stage: '住院医师',
     category: '制度博弈',
-    title: '「你态度不好」',
-    description:
-      '周五下午，医务科通知你去一趟。到了才知道，上周一个患者投诉你"态度不好，跟患者说话不耐烦"。你努力回忆——那天门诊看了60多个病人，到下午嗓子都哑了，可能确实没有对每个病人都笑脸相迎。医务科老师说："患者还发了微博，院里领导看到了。"',
+    title: '被投诉态度差',
+    description: '医务科通知你去。一周前患者投诉你"态度不耐烦"还发了微博。那天你看了60多个病人。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院行政办公室，年轻男医生坐在办公桌前表情委屈无奈，对面穿着西装的行政人员正在谈话，桌上有投诉文件，窗外阳光照进来但气氛压抑",
-    realCaseRef: '北京市医调委统计数据："服务态度"占投诉原因第一位',options: [
-      {
-        id: 'defend',
-        label: '据理力争：「我一天看60多个病人，能看完就不错了，还要我怎么样？」',
-        outcome:
-          '医务科老师沉默了几秒："我知道你们辛苦，但投诉已经记录在案了。你这种态度，我只能写‘当事人不配合’。这会影响你这季度的考核。"你感到更加愤怒和委屈，回到科室后跟同事抱怨，结果被传到主任耳朵里。',
-        statsEffect: { support: -10, reputation: -10, mental: -10 },
-        isRecommended: false,
-        tip: '在制度面前，情绪对抗永远是最差的选择。医务科不是你的敌人，他们也只是走流程。',
-      },
-      {
-        id: 'accept',
-        label: '诚恳接受批评，写一份情况说明，主动提出参加医患沟通培训',
-        outcome:
-          '你深呼吸，说："老师，那天确实太忙了，我可能语气不太好。我回去写个说明，以后注意。" 医务科老师脸色稍霁："行，写个情况说明就行，也别太紧张。沟通培训就算了吧，你们够忙的了。" 投诉没有影响你的考核。',
-        statsEffect: { reputation: -3, mental: -5, legalRisk: -3 },
-        isRecommended: false,
-        tip: '顺势而为有时能化解问题。但这种妥协累积久了会消耗你的心理能量。',
-      },
-      {
-        id: 'record-review',
-        label: '调取当天门诊病历记录，以工作量数据说明情况，同时诚恳表示会改进沟通方式',
-        outcome:
-          '你打印了当天60多个门诊号的记录，同时承认"忙不是态度差的理由，我会改进"。医务科老师看了记录后反而有些动容，帮你写了一句"经核查，当日门诊量远超正常负荷，已对当事人进行提醒"。主任后来知道了这件事，说"处理得不错"。',
-        statsEffect: { reputation: +5, support: +5, mental: +2 },
-        isRecommended: true,
-        tip: '事实+态度。用证据框定事实边界，用诚恳化解情绪攻击。两者缺一不可。',
-      },
+    realCaseRef: '北京市医调委统计："服务态度"居投诉原因首位',
+    imagePrompt: '中国医院行政办公室，年轻男医生坐在办公桌前表情委屈无奈，对面穿着西装的行政人员正在谈话，桌上有投诉文件，窗外阳光照进来但气氛压抑',
+    options: [
+      { id: 'defend', label: '据理力争拿工作量说事', isDefault: true, outcome: '医务科说你态度不好。你的辩解被记为"不配合"。季度考核受影响。', statsEffect: { support: -10, reputation: -10, mental: -10 }, isRecommended: false, tip: '情绪对抗是最差的应对。', },
+      { id: 'accept', label: '认错写份情况说明', isDefault: false, outcome: '投诉没影响考核。但你心里憋屈——每次都这么妥协很消耗人。', statsEffect: { reputation: -3, mental: -5, legalRisk: -3 }, isRecommended: false, tip: '化解了眼前但委屈累积会内伤。', },
+      { id: 'record-review', label: '调出门诊数据有理有据回应', isDefault: false, outcome: '你打印60个门诊号记录，同时承认"忙不是借口会改进"。医务科反而帮你。', statsEffect: { reputation: +5, support: +5, mental: +2 }, isRecommended: true, tip: '事实框定边界，诚恳化解情绪。', },
     ],
   },
   {
@@ -218,79 +83,29 @@ export const allEvents: GameEvent[] = [
     stage: '住院医师',
     category: '手术室边缘',
     title: '术前红包',
-    description:
-      '明天你参与的第一台独立主刀手术（腹腔镜胆囊切除术），患者是一位50岁的女性。下午你正在病房做术前准备，患者丈夫悄悄把你拉到走廊尽头，塞给你一个信封："医生，明天拜托了，一点心意。"你摸着厚厚一叠。他妻子就在旁边，眼巴巴地看着你。',
+    description: '明天你主刀的手术，患者丈夫在走廊塞给你厚信封："一点心意。"妻子在旁眼巴巴看着。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院空荡荡的走廊尽头，中年男子神秘地靠近年轻女医生，手中递出一个厚信封，表情既真诚又紧张，医生面露难色，写实风格",
-    realCaseRef: '多地卫健委通报案例，医生因收受红包被停职、吊销执业证',options: [
-      {
-        id: 'accept',
-        label: '收下红包，心想"别人都收，我不收患者反而不放心"',
-        outcome:
-          '手术很顺利。但你收红包的事不知道被谁举报了——可能是隔壁床的患者家属看到了走廊那一幕。院纪委找你谈话，你承认了。最终处理：退回红包，全院通报批评，停止执业3个月，记入医德档案。你的规培结业被延迟。',
-        statsEffect: { reputation: -30, legalRisk: +25, support: -20, mental: -20 },
-        isRecommended: false,
-        tip: '收红包是医疗红线中的红线。不要以为"别人都这样"就是安全的——举报你的人可能就是"别人"。',
-      },
-      {
-        id: 'refuse-stern',
-        label: '严厉拒绝：「你这是在害我！赶紧收起来」',
-        outcome:
-          '患者丈夫脸色很难看，妻子在旁边也很尴尬。第二天手术前，患者情绪很差，一直在哭。麻醉前她跟护士说"医生是不是嫌钱少，会不会不好好做"。虽然手术顺利，但患者全程很紧张，术后一直不太信任你。',
-        statsEffect: { mental: -5, reputation: -5 },
-        isRecommended: false,
-        tip: '拒绝方式太生硬会让患者觉得"医生嫌钱少"或"医生生气了"。需要用让患者安心的方式拒绝。',
-      },
-      {
-        id: 'decline-gently',
-        label: '微笑着说：「谢谢你们的心意，但这是我的本职工作。你们放心，我会认真做这台手术。如果术后你们觉得我做得不错，写封感谢信给科室就行。」',
-        outcome:
-          '患者丈夫愣了一下，妻子却露出了释然的表情。你把信封推回去的动作坚定但不生硬。手术很顺利。术后第三天，患者夫妇真的给科室送来了一封感谢信。主任在晨会上表扬了你。',
-        statsEffect: { reputation: +10, mental: +5, support: +5 },
-        isRecommended: true,
-        tip: '拒绝红包的关键是：让患者"放心"。他们塞红包往往源于恐惧和不确定。你用承诺和信心替代红包给他们的"安全感"。',
-      },
+    realCaseRef: '多地卫健委通报：医生因收受红包被停职、吊销执业证',
+    imagePrompt: '中国医院空荡荡的走廊尽头，中年男子神秘地靠近年轻女医生，手中递出一个厚信封，表情既真诚又紧张，医生面露难色，写实风格',
+    options: [
+      { id: 'accept', label: '收下免得病人不放心', isDefault: true, outcome: '不知被谁举报。纪委谈话。全院通报，停执业3个月，规培延迟。', statsEffect: { reputation: -30, legalRisk: +25, support: -20, mental: -20 }, isRecommended: false, tip: '红包是红线中的红线。', },
+      { id: 'refuse-stern', label: '严词拒绝：你这样是害我', isDefault: false, outcome: '家属尴尬妻子术前哭。术后她始终不信任你。', statsEffect: { mental: -5, reputation: -5 }, isRecommended: false, tip: '硬拒让患者觉得"嫌钱少"。', },
+      { id: 'decline-gently', label: '婉拒：做好是本职写信就行', isDefault: false, outcome: '妻子松口气。术后他们真送来感谢信，主任表扬了你。', statsEffect: { reputation: +10, mental: +5, support: +5 }, isRecommended: true, tip: '患者塞红包是恐惧。用承诺替代红包。', },
     ],
   },
   {
     id: 'r7-over-testing',
     stage: '住院医师',
     category: '诊室暗流',
-    title: '「怎么开这么多检查？」',
-    description:
-      '一位40岁男性患者因腹痛来诊，你根据诊疗规范开了血常规、肝肾功能、腹部B超、心电图等检查。患者看了一眼检查单，突然提高音量："怎么开这么多检查？你们是不是有提成？我同事做个B超就完事了，你给我开一大堆？"周围的候诊患者开始注意这边。',
+    title: '检查开多了？',
+    description: '腹痛患者，你开血常规B超心电图。他大声说："开这么多？有提成是吧？"候诊区全看过来。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院候诊区，中年男性患者拿着检查单表情愤怒地大声质问，周围候诊的患者们探头张望围观，年轻医生站着耐心解释，医患冲突一触即发，写实风格",
-    realCaseRef: '泉州卫健委投诉案例（2025）：患者投诉医生过度检查，调查后认定医生行为合规',options: [
-      {
-        id: 'reduce',
-        label: '减少检查项目：「行吧，那就只做B超，其他的不做了」',
-        outcome:
-          'B超结果显示胆囊结石，但你漏掉了心电图——而患者实际上同时有不典型心绞痛，腹痛可能是心源性。3天后患者因急性心肌梗死再次入院。虽然最终没有起诉，但科室做了病例讨论，认为你的诊疗不完整。',
-        statsEffect: { legalRisk: +20, reputation: -15, mental: -10 },
-        isRecommended: false,
-        tip: '被患者质疑就降低诊疗标准，最终承担责任的是你，不是患者。',
-      },
-      {
-        id: 'argue',
-        label: '硬气回应：「我是医生，该做什么检查我说了算」',
-        outcome:
-          '患者更加愤怒："你什么态度？我要投诉你！" 说完拿起手机开始录像。你越解释他越激动。最后门诊部主任过来调停，帮你安抚了患者。但患者还是去投诉了，说"医生态度蛮横"。',
-        statsEffect: { reputation: -10, mental: -10, legalRisk: +10 },
-        isRecommended: false,
-        tip: '权威式回应在今天的医疗环境中往往会激化矛盾。患者需要的是理解，不是压制。',
-      },
-      {
-        id: 'educate',
-        label: '耐心解释每项检查的必要性：「腹痛的原因很多，除了胆囊问题，还要排除心脏、胰腺、肾脏的问题。心电图是最基本的，因为有些心脏病表现为腹痛。这些是标准检查，不是额外的。」',
-        outcome:
-          '患者听了解释后态度缓和了不少："哦，原来是这样，那行吧，我去做。" 你在病历中记录了沟通内容。检查结果出来后，心电图提示ST-T改变，你及时请心内科会诊，发现了隐藏的冠心病。患者后来专门来找你说："医生谢谢你，要不是你坚持，我都不知道心脏有问题。"',
-        statsEffect: { reputation: +10, mental: +3, legalRisk: -5 },
-        isRecommended: true,
-        tip: '患者质疑检查的核心是"不信任"。用通俗语言解释每项检查的医学必要性，比说"这是规定"有效得多。',
-      },
+    realCaseRef: '泉州卫健委投诉案例（2025）：调查后认定医生行为合规',
+    imagePrompt: '中国医院候诊区，中年男性患者拿着检查单表情愤怒地大声质问，周围候诊的患者们探头张望围观，年轻医生站着耐心解释，医患冲突一触即发，写实风格',
+    options: [
+      { id: 'reduce', label: '减去其他就做B超', isDefault: true, outcome: 'B超发现胆结石，漏了心电图。3天后心梗——腹痛是心源性的。', statsEffect: { legalRisk: +20, reputation: -15, mental: -10 }, isRecommended: false, tip: '降诊疗标准出事后你担责。', },
+      { id: 'argue', label: '硬气回应该查什么我说了算', isDefault: false, outcome: '患者更怒，拿起手机录像。门诊主任来调停。他还是投诉了。', statsEffect: { reputation: -10, mental: -10, legalRisk: +10 }, isRecommended: false, tip: '权威式回应只会激化矛盾。', },
+      { id: 'educate', label: '逐项解释每项检查的必要性', isDefault: false, outcome: '你说明腹痛可能来自心脏胰腺胆囊。他听完理解了。心电图提示ST改变，及时会诊。他后来感谢你。', statsEffect: { reputation: +10, mental: +3, legalRisk: -5 }, isRecommended: true, tip: '用通俗语言解释医学必要性。', },
     ],
   },
 
@@ -299,40 +114,15 @@ export const allEvents: GameEvent[] = [
     id: 'a1-mob-besiege',
     stage: '主治医师',
     category: '病房风暴',
-    title: '走廊尽头的几十个人',
-    description:
-      '你主管的一位80岁重症肺炎患者经过一周治疗后，因多器官功能衰竭去世。你已尽力，家属也表示理解。但第二天上午，患者的一个远房亲戚带着30多人来到病区，拉横幅、烧纸钱，要求"医生出来给个说法"并索赔50万。护士们吓得躲进治疗室。你是当班主治。',
+    title: '来了几十个人',
+    description: '你管的老人去世了。第二天30多人来病区拉横幅烧纸，喊"医生出来"，索赔50万。护士全躲进治疗室。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院病房走廊尽头，几十个家属拉白色横幅围堵，气氛紧张压抑，保安试图维持秩序，写实新闻摄影风格",
-    realCaseRef: '江西靖安县中医院医闹事件：家属在门诊大厅设灵堂、纠集上百人',options: [
-      {
-        id: 'go-out',
-        label: '出去跟家属沟通：「我问心无愧，有什么话跟我说」',
-        outcome:
-          '你刚走出办公室就被团团围住。有人推了你一把，你摔倒在地，头撞到墙上。混乱中有人踢了你几脚。保安赶到时你已经多处软组织挫伤。虽然警察后来带走了几个带头闹事的人，但你的伤养了两周。更糟的是，事件被媒体报道，标题是"患者死亡家属讨说法，医生被打"——两边各打五十大板。',
-        statsEffect: { safety: -30, mental: -25, reputation: -10 },
-        isRecommended: false,
-        tip: '永远不要一个人面对群体性医闹。你不是谈判专家，你的安全是第一位的。',
-      },
-      {
-        id: 'call-police',
-        label: '立即拨打110，通知院保卫科和院总值班，锁好办公室门，等待支援',
-        outcome:
-          '5分钟内院保卫科10人到位，10分钟内派出所民警到场。民警明确告知家属："有任何诉求走法律途径，在医院烧纸拉横幅是违法的。"家属最终散去。第二天直系家属来院，你跟他们做了充分的病情沟通，他们表示理解——这群人其实是远房亲戚"自发"来的，直系家属并不知情。',
-        statsEffect: { safety: +15, support: +10, mental: +5 },
-        isRecommended: true,
-        tip: '面对群体事件的三步：报警→锁门→等支援。不要试图"以理服人"，警察和法律才是你的后盾。另外：直系家属和闹事者往往是两拨人。',
-      },
-      {
-        id: 'negotiate',
-        label: '请家属代表到会议室"谈"，暗示可以考虑减免部分费用',
-        outcome:
-          '家属看到医院有"谈"的意愿，提出索赔50万。你说需要"汇报领导"。最终在院方协调下减免了部分医疗费，家属放弃闹事。但消息传开后，有人说"这家医院闹一闹就能免钱"。两个月后又发生了类似的围堵事件。',
-        statsEffect: { reputation: -15, support: -5, mental: -10, legalRisk: +5 },
-        isRecommended: false,
-        tip: '"花钱买平安"是最差的策略——它会激励更多的闹事。靖安县中医院"一分不赔"才是正确示范。',
-      },
+    realCaseRef: '江西靖安县中医院医闹事件：家属设灵堂纠集上百人',
+    imagePrompt: '中国医院病房走廊尽头，几十个家属拉白色横幅围堵，气氛紧张压抑，保安试图维持秩序，写实新闻摄影风格',
+    options: [
+      { id: 'go-out', label: '出去面对说问心无愧', isDefault: true, outcome: '被围堵推倒，头撞墙多处挫伤。养伤两周。媒体报道各打五十大板。', statsEffect: { safety: -30, mental: -25, reputation: -10 }, isRecommended: false, tip: '一个人面对群体医闹等于送死。', },
+      { id: 'call-police', label: '报警锁门等保卫科支援', isDefault: false, outcome: '保安和警察10分钟内到，家属散去。真家属后来沟通——那些人是远亲"自发"的。', statsEffect: { safety: +15, support: +10, mental: +5 }, isRecommended: true, tip: '报警→锁门→等支援。直系和闹事者往往两拨人。', },
+      { id: 'negotiate', label: '请代表进会议室商讨方案', isDefault: false, outcome: '院方减免费用平息。但消息传开"闹就有钱"，月后又有人来。', statsEffect: { reputation: -15, support: -5, mental: -10, legalRisk: +5 }, isRecommended: false, tip: '"花钱买平安"激励更多医闹。', },
     ],
   },
   {
@@ -340,199 +130,88 @@ export const allEvents: GameEvent[] = [
     stage: '主治医师',
     category: '网络暴力',
     title: '15秒的审判',
-    description:
-      '周末在家刷抖音，你突然看到一段熟悉的视频——是你上周在门诊给一个患儿看诊的画面，只有15秒，配文是："某三甲医院医生对患儿态度冷漠，全程不看孩子一眼。"实际上那15秒是你正在低头写病历，前后都有跟孩子互动。但评论区已经炸了："这种人配当医生？""曝光他！""哪个医院的，举报！"视频已经有了3万点赞。',
+    description: '刷到自己的视频——你低头写病历的15秒，配文"对患儿态度冷漠"。3万点赞，评论炸了。',
     isRealCase: true,
-    imagePrompt:
-      "一个手机屏幕特写，屏幕上显示抖音短视频评论区大量恶意攻击留言，手机背后的虚化背景是医院诊室，光线从手机屏幕映出冷色调，数字时代写实风格",
-    realCaseRef: '山西兴县"护士在岗"造谣事件（2026）；周口六院邵医生被网暴7个月坠楼事件（2025）',options: [
-      {
-        id: 'reply',
-        label: '在评论区回复：「我是当事医生，这个视频断章取义，我已经跟孩子充分沟通了」',
-        outcome:
-          '你的回复反而引来更多攻击："还敢来洗？""心虚了吧？""一个小医生还敢怼网友？" 有人扒出你的名字、科室、毕业学校，开始给你发私信辱骂。你连续几晚失眠，不敢打开手机。',
-        statsEffect: { reputation: -15, mental: -25, safety: -10 },
-        isRecommended: false,
-        tip: '跟互联网对线是你绝对赢不了的战斗。你越回应，算法越推流。',
-      },
-      {
-        id: 'report-platform',
-        label: '不公开回应，保存证据（截图、录屏），通过医院宣传科正式向平台投诉侵权',
-        outcome:
-          '你截图保留了所有证据。周一早上你第一时间向科主任和宣传科汇报。宣传科以医院名义向抖音平台投诉该视频"侵犯医务人员肖像权、歪曲事实"。48小时内视频被下架。虽然造谣者没有被追责，但你没有陷入舆论漩涡。',
-        statsEffect: { safety: +10, support: +10, reputation: -5, mental: -5 },
-        isRecommended: true,
-        tip: '让制度和机构去对付网络暴力，不要自己上阵。保存证据→上报医院→由医院出面投诉→必要时报警。周口六院邵医生因为没有得到机构支持，独自对抗网暴7个月后坠楼——这个教训太惨痛了。',
-      },
-      {
-        id: 'ignore',
-        label: '不管它，互联网热点几天就过去了',
-        outcome:
-          '你忍着不去看。但视频继续发酵，被同城的一个自媒体号转发，评论区里有人认出了你的医院和科室。周一上班时，门诊护士长告诉你"有人在导诊台问你是不是那个医生"。主任找你谈话，说院里看到了，问你怎么不早汇报。',
-        statsEffect: { reputation: -20, support: -10, mental: -15 },
-        isRecommended: false,
-        tip: '网络舆情不会自己消失。越早动用制度力量处理，伤害越小。',
-      },
+    realCaseRef: '山西兴县造谣事件（2026）；周口邵医生被网暴坠楼（2025）',
+    imagePrompt: '一个手机屏幕特写，屏幕上显示抖音短视频评论区大量恶意攻击留言，手机背后的虚化背景是医院诊室，光线从手机屏幕映出冷色调，数字时代写实风格',
+    options: [
+      { id: 'reply', label: '评论区回应自己是当事医生', isDefault: true, outcome: '引来更多攻击，被人肉出姓名科室。私信辱骂涌入，连续失眠。', statsEffect: { reputation: -15, mental: -25, safety: -10 }, isRecommended: false, tip: '跟互联网对线永远赢不了。', },
+      { id: 'report-platform', label: '留存证据上报医院宣传科', isDefault: false, outcome: '截图保留证据后第一时间汇报。医院出面投诉，48小时视频下架。你没成舆论主角。', statsEffect: { safety: +10, support: +10, reputation: -5, mental: -5 }, isRecommended: true, tip: '让平台和机构去对抗。别一个人扛。', },
+      { id: 'ignore', label: '不管不问等热度自然消退', isDefault: false, outcome: '视频持续发酵被自媒体转发。有人认出医院。主任问你为什么不早汇报。', statsEffect: { reputation: -20, support: -10, mental: -15 }, isRecommended: false, tip: '舆情不会自己消失只会发酵。', },
     ],
   },
   {
     id: 'a3-postop-complication',
     stage: '主治医师',
     category: '手术室边缘',
-    title: '「手术失败了」',
-    description:
-      '你为一位直肠癌患者做了腹腔镜直肠癌根治术。手术本身顺利，但术后第4天出现了吻合口漏——这是一个发生率约5-8%的已知并发症，术前知情同意书已明确告知。但家属在病房里大喊："你们手术做失败了！人都快被你们治死了！" 患者的儿子掏出手机开始录像。',
+    title: '"手术失败了"',
+    description: '直肠癌术后第4天出现吻合口漏——发生率5-8%，同意书已告知。但家属大喊"手术失败了"，儿子掏出手机录像。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院病房，患者躺在病床上虚弱，家属情绪激动手指着门口方向大声喊叫，年轻主治医生站在床边表情镇定但眼神忧虑，心电监护仪在背景中，写实风格",
-    realCaseRef: '多地医疗纠纷中"并发症=手术失败"的典型患者认知误区',options: [
-      {
-        id: 'defensive',
-        label: '立即辩解：「这不是手术失败！吻合口漏是正常并发症，术前同意书上都写了！」',
-        outcome:
-          '"并发症？！你们就知道拿并发症当借口！" 家属情绪更加激动，录像的手机怼到了你脸上。视频被发到家族群，再转到抖音。虽然你在医学上是正确的，但你"术前同意书上都写了"这句话被剪出来，变成"医生拿同意书当挡箭牌"的素材。',
-        statsEffect: { reputation: -15, mental: -10, legalRisk: +15 },
-        isRecommended: false,
-        tip: '并发症和手术失败的区别在医生看来很清楚，但在家属听来，"并发症"三个字就是推卸责任。解释的方式决定了冲突的走向。',
-      },
-      {
-        id: 'empathize-act',
-        label: '先共情：「我理解你们现在很着急。出现了并发症，我们都不希望看到。现在的重点是——我们马上处理。」然后立刻组织会诊和急诊手术',
-        outcome:
-          '家属听到"我们马上处理"，情绪稍微缓和了一些。你紧急联系了主任和普外科会诊，当天下午行急诊腹腔镜探查+横结肠造口术。虽然患者需要二次手术，但因为处理及时，没有发展成感染性休克。术后你每天早晚都去查房，亲自换药、解释病情。两周后患者顺利出院，家属临走时跟你握了手。',
-        statsEffect: { reputation: +8, support: +5, safety: +5, mental: +3 },
-        isRecommended: true,
-        tip: '家属说"手术失败"的真正意思是"我很害怕，我需要有人负责"。你不需要认错，但需要接住他们的情绪，再用行动证明你在解决问题。',
-      },
-      {
-        id: 'avoid-family',
-        label: '躲开家属，让护士去沟通，自己等家属走了再查房',
-        outcome:
-          '你的回避让家属更加愤怒："医生都不敢露面，肯定是心虚了！" 他们到医务科投诉，并拒绝继续在该科室治疗，要求转院。转院过程中患者病情加重。虽然最终没有起诉你，但主任对你的处理方式非常不满。',
-        statsEffect: { support: -15, reputation: -10, mental: -5 },
-        isRecommended: false,
-        tip: '出了并发症更要增加沟通频率。回避会坐实家属的猜疑。',
-      },
+    realCaseRef: '多地医疗纠纷中"并发症=手术失败"的认知误区',
+    imagePrompt: '中国医院病房，患者躺在病床上虚弱，家属情绪激动手指着门口方向大声喊叫，年轻主治医生站在床边表情镇定但眼神忧虑，心电监护仪在背景中，写实风格',
+    options: [
+      { id: 'defensive', label: '强调同意书已告知并发症', isDefault: true, outcome: '"又拿同意书当挡箭牌！"家属更激动，视频发家族群再传抖音。', statsEffect: { reputation: -15, mental: -10, legalRisk: +15 }, isRecommended: false, tip: '家属听到的不是"并发症"是"推卸"。', },
+      { id: 'empathize-act', label: '先共情再行动组织紧急会诊', isDefault: false, outcome: '"我们马上处理"让家属稍冷静。急诊修补瘘口后你每天两次查房，两周后顺利出院。', statsEffect: { reputation: +8, support: +5, safety: +5, mental: +3 }, isRecommended: true, tip: '"手术失败"其实是在说"我很害怕"。用行动回应。', },
+      { id: 'avoid-family', label: '让护士去沟通自己先避开', isDefault: false, outcome: '回避让家属认定"心虚了"。投诉到医务科要求转院，转院中病情加重。', statsEffect: { support: -15, reputation: -10, mental: -5 }, isRecommended: false, tip: '出并发症反而要增加沟通。', },
     ],
   },
   {
     id: 'a4-scapegoat',
     stage: '主治医师',
     category: '制度博弈',
-    title: '谁的责任？',
-    description:
-      '你和一个同事共同管理一个病区。上周一个患者的用药方案是同事定的，但执行医嘱的是你。患者出现了药物不良反应，家属投诉到医务科。同事在内部讨论时把责任推给了你："我当时只是建议，最终执行是他/她确认的。"主任看着你，等你解释。',
+    title: '谁来背锅',
+    description: '同事定的方案你执行，患者不良反应被投诉。他在讨论时推给你："我只是建议，最终是他确认的。"主任看着你。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院会议室，两个穿白大褂的医生面对面坐着争论，中间主任表情严肃双手交叉，桌上摊开病历和电脑，窗外城市黄昏光线，职场紧张气氛",
-    realCaseRef: '多地医院内部纠纷案例，医生群体中"甩锅"文化',options: [
-      {
-        id: 'accept-blame',
-        label: '忍了：「是我的问题，下次注意」',
-        outcome:
-          '你扛下了责任。医务科记录上写了你的名字。季度考核被扣分，但你"顾全大局"的表现没有人感激。相反，同事从此养成了习惯——自己的决策让你执行，出了事让你背。你的心理压力越来越大。',
-        statsEffect: { mental: -15, reputation: -10, support: -5 },
-        isRecommended: false,
-        tip: '顾全大局不等于当替罪羊。一次忍让可能换来长期被欺负。',
-      },
-      {
-        id: 'confront-colleague',
-        label: '当面指出：「这个方案是你定的，用药医嘱单上有你的签名，我们可以调病历」',
-        outcome:
-          '同事脸色铁青。主任调取了电子病历系统，确认了医嘱的签名为同事。主任说："方案谁定的谁负责，但执行者发现问题没有及时提出也有责任。" 虽然你"洗清"了主要责任，但同事关系彻底破裂了。以后工作中对方处处针对你。',
-        statsEffect: { reputation: -5, mental: -10, support: +3, legalRisk: -5 },
-        isRecommended: false,
-        tip: '事实可以洗清责任，但不一定能修复关系。在公开场合"翻病历"是双刃剑。',
-      },
-      {
-        id: 'fact-based',
-        label: '平静陈述事实但不直接攻击同事：「我理解家属的担心。这个方案当时我们讨论过，医嘱记录里有完整的签名。现在重点是先处理患者的不良反应，责任问题我们可以内部查清楚。」',
-        outcome:
-          '你的话既没有直接指责同事，也没有自己扛下。主任点头说"先把病人处理好，回头科室内部做一次病例讨论"。事后你私下找同事聊了一次，把话说开了——"下次有不同意见先沟通，别等出事了互相猜。"同事沉默了一下，点了点头。',
-        statsEffect: { reputation: +5, support: +5, mental: +3 },
-        isRecommended: true,
-        tip: '面对甩锅，把矛头从"谁对谁错"转向"怎么解决问题"。先处理事情再处理关系。',
-      },
+    realCaseRef: '多地医院内部"甩锅"文化真实案例',
+    imagePrompt: '中国医院会议室，两个穿白大褂的医生面对面坐着争论，中间主任表情严肃双手交叉，桌上摊开病历和电脑，窗外城市黄昏光线，职场紧张气氛',
+    options: [
+      { id: 'accept-blame', label: '忍了扛下说是我考虑不周', isDefault: true, outcome: '扣入考核。没人感激你。同事此后习惯让你执行他的决策，出事继续甩给你。', statsEffect: { mental: -15, reputation: -10, support: -5 }, isRecommended: false, tip: '一次退让可能换长期被欺负。', },
+      { id: 'confront-colleague', label: '当面指出医嘱上有他的签名', isDefault: false, outcome: '调病历确认签名。主任"谁定谁负责"。你洗清了自己但同事关系彻底破裂。', statsEffect: { reputation: -5, mental: -10, support: +3, legalRisk: -5 }, isRecommended: false, tip: '事实能洗责任不一定能修关系。', },
+      { id: 'fact-based', label: '先处理患者责任内部再查', isDefault: false, outcome: '你稳住患者情况再私下找同事："下次有分歧先沟通。"他沉默后点头。', statsEffect: { reputation: +5, support: +5, mental: +3 }, isRecommended: true, tip: '把矛头从"谁错"转向"怎么解决"。', },
     ],
   },
   {
     id: 'a5-refuse-admit',
     stage: '主治医师',
     category: '法律雷区',
-    title: '「死了也不关你事」',
-    description:
-      '急诊科送来一个胸痛患者，心电图和肌钙蛋白都提示急性心肌梗死。你明确告知需要立即住院行急诊PCI（冠状动脉介入治疗）。患者是个50岁的男性，态度强硬："我没事，吃点药就行。我弟弟就是心梗，做了支架以后更差了。我不做支架，不住院。" 他的妻子在旁边急得哭，但他就是不听。',
+    title: '"死了也不怪你"',
+    description: '胸痛患者明确心梗，你让他紧急住院。他说"没事吃吃药就行，我弟做支架后更差了"。妻子在旁边急哭了。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院急诊室，50岁男性患者态度强硬手掌向外推做拒绝手势表情固执，妻子在旁边哭泣，医生手持心电图报告表情凝重在劝说，急救设备在背景中",
-    realCaseRef: '真实判决：患者拒绝住院5天后猝死，家属起诉医院，法院判决（2025年）',options: [
-      {
-        id: 'let-go-no-sign',
-        label: '既然本人坚决不同意，让他走，口头嘱咐妻子"有情况随时来"',
-        outcome:
-          '3天后患者在家中猝死。妻子在律师怂恿下起诉医院："医生没有尽到告知义务，没有告诉我们不做的后果有多严重。" 因为你没有让患者签署拒绝治疗知情同意书，法院认定医院存在告知不充分的过失，判决赔偿18万余元。你的名字上了判决书，在医院档案里留了记录。',
-        statsEffect: { legalRisk: +35, reputation: -20, mental: -20 },
-        isRecommended: false,
-        tip: '这是医疗诉讼中最常见的情形。患者拒绝→不出事还好→出了事就是你没告知到位。没有签字=没有证据=你输了。',
-      },
-      {
-        id: 'document-full',
-        label: '详细告知风险，在病历中记录，请患者签署《拒绝治疗知情同意书》，同时让妻子作为见证人签字',
-        outcome:
-          '你花了15分钟，画出心脏血管堵塞的示意图，告诉他"做支架有风险，但不做支架的风险大得多——心肌会坏死，最坏的结果是猝死。" 你请他在知情同意书的"拒绝"栏签字，他犹豫了一下，签了。妻子也在见证人栏签了字。临走时你说："如果有胸痛加重，立即打120。" 后来他没有出事，但即使出事，完整的病历记录也足以保护你。',
-        statsEffect: { legalRisk: -15, safety: +15, reputation: +5 },
-        isRecommended: true,
-        tip: '知情同意书不只是保护患者，更是保护你的法律武器。用通俗语言解释风险，让家属做见证人——这两步绝对不能省略。',
-      },
-      {
-        id: 'coerce-stay',
-        label: '严厉警告：「你不做支架会死的！今天必须住院！」',
-        outcome:
-          '患者虽然被你的气势镇住，勉强住了院，但全程不配合，对护士发脾气，第二天就签了自动出院。出院后他把这段经历发在网上，说"医生为了绩效恐吓患者住院"。虽然你在医学上是正确的，但你的沟通方式让你成了"恶医生"的故事主角。',
-        statsEffect: { reputation: -15, mental: -5, support: -3 },
-        isRecommended: false,
-        tip: '医学正确不等于沟通正确。恐吓式沟通即使达到了住院的目的，也种下了日后纠纷的种子。',
-      },
+    realCaseRef: '真实判决：患者拒绝住院5天后猝死，家属索赔57.8万',
+    imagePrompt: '中国医院急诊室，50岁男性患者态度强硬手掌向外推做拒绝手势表情固执，妻子在旁边哭泣，医生手持心电图报告表情凝重在劝说，急救设备在背景中',
+    options: [
+      { id: 'let-go-no-sign', label: '他执意要走嘱其不适随诊', isDefault: true, outcome: '3天后猝死。家属起诉"医生没说会死"。无签字记录，法院判赔18万。', statsEffect: { legalRisk: +35, reputation: -20, mental: -20 }, isRecommended: false, tip: '没签字等于法律上没告知。', },
+      { id: 'document-full', label: '画堵塞图讲风险让他签拒绝', isDefault: false, outcome: '你画图解释不做的风险远大于做。他犹豫后签字，妻子也见证签字。', statsEffect: { legalRisk: -15, safety: +15, reputation: +5 }, isRecommended: true, tip: '知情同意书是你最重要的法律武器。', },
+      { id: 'coerce-stay', label: '严词警告不做支架你会死', isDefault: false, outcome: '他勉强住院但不配合第二天自动出院。网上发帖"医生为绩效恐吓患者"。', statsEffect: { reputation: -15, mental: -5, support: -3 }, isRecommended: false, tip: '医学正确不等于沟通正确。', },
     ],
   },
   {
     id: 'a6-private-settle',
     stage: '主治医师',
     category: '制度博弈',
-    title: '「赔点钱算了」',
-    description:
-      '你管的患者出现了一个治疗并发症（不属于医疗事故，但确实增加了患者痛苦和住院时间）。家属到医务科投诉。第二天，医务科主任找你谈话："这个事吧，技术上你没错。但家属闹得厉害，又找了媒体。院里意见是协商解决，赔个三五万省事。你配合一下，承认沟通有不到位的地方。"',
+    title: '"赔点钱算了"',
+    description: '治疗并发症被投诉。医务科说："技术上你没错，但家属闹得凶找了媒体。院里建议三五万私了，你配合承认沟通不到位。"',
     isRealCase: true,
-    imagePrompt:
-      "中国医院办公室黄昏时分，医务科主任坐在办公桌后表情为难，年轻医生坐在对面感到压力很大，窗外天色渐暗，室内灯光惨淡，压抑的行政氛围",
-    realCaseRef: '多地医院"私了"医患纠纷的普遍做法；北医三院张煜医生因公开批评被解聘案（2026年法院判医院违法）',options: [
-      {
-        id: 'agree',
-        label: '按照院里说的做，承认"沟通不到位"，配合赔偿',
-        outcome:
-          '赔偿方案执行了，家属拿到钱后撤诉。但你"承认沟通不到位"被记录在案。下一年的医师定期考核中，这个记录被翻出来，你的考核结果为"基本合格"。更糟的是，院里以后再遇到类似的纠纷，都会让你"配合处理"——你成了"好说话的人"。',
-        statsEffect: { reputation: -15, legalRisk: +10, mental: -10 },
-        isRecommended: false,
-        tip: '"承认沟通不到位"在法律上可能被解读为"承认有过错"。你以为是配合院里工作，实际上给自己背了一个不清不楚的锅。',
-      },
-      {
-        id: 'refuse',
-        label: '坚决不认：「技术上我没有错，我不会承认莫须有的过错」',
-        outcome:
-          '你的强硬态度让医务科很难办。院长找了你和主任一起谈话。主任虽然当面帮你说了几句，但私下告诉你"你这样搞，以后院里对你的印象不好。" 虽然最终没有强求你认错，但你的晋升材料在院务会上被搁置了。',
-        statsEffect: { support: -10, mental: -5, reputation: +5, legalRisk: -5 },
-        isRecommended: false,
-        tip: '讲原则是对的，但代价可能是你的职业发展。这是现实中最难的选择之一。',
-      },
-      {
-        id: 'third-party',
-        label: '建议走医调委或医疗鉴定：「我理解院里想尽快解决问题，但为了公平起见，建议走第三方调解或鉴定。如果鉴定认为我有责任，我承担。」',
-        outcome:
-          '院里虽然不太情愿（因为走流程时间长），但在你的坚持下同意了。医调委介入后认定：治疗符合规范，并发症属于医疗风险而非医疗过错。家属看到第三方结论后放弃了索赔要求。虽然多花了一个月时间，但你没有背锅，医院也没有赔钱。',
-        statsEffect: { reputation: +10, safety: +10, support: +5, mental: +5 },
-        isRecommended: true,
-        tip: '第三方鉴定/调解是打破"私了困局"的最优解。既保护自己不被冤枉，又不跟院里正面冲突。医调委、医学会鉴定、司法鉴定——记住这三条路。',
-      },
+    realCaseRef: '多地医院"私了"医患纠纷的普遍做法；北医三院张煜案',
+    imagePrompt: '中国医院办公室黄昏时分，医务科主任坐在办公桌后表情为难，年轻医生坐在对面感到压力很大，窗外天色渐暗，室内灯光惨淡，压抑的行政氛围',
+    options: [
+      { id: 'agree', label: '按院里意思赔钱了事', isDefault: true, outcome: '"承认沟通不到位"记入考核。此后每次纠纷都让你配合——你成了"好说话的人"。', statsEffect: { reputation: -15, legalRisk: +10, mental: -10 }, isRecommended: false, tip: '"承认不到位"可能解读为"承认有过错"。', },
+      { id: 'refuse', label: '坚决不认：技术上我没错', isDefault: false, outcome: '院长找你和主任谈话。虽未强求认错，晋升材料被搁置。主任私下劝你"别太硬"。', statsEffect: { support: -10, mental: -5, reputation: +5, legalRisk: -5 }, isRecommended: false, tip: '讲原则没错但代价是职业发展。', },
+      { id: 'third-party', label: '建议走医调委第三方鉴定', isDefault: false, outcome: '医调委认定诊疗合规，家属放弃索赔。多花一个月但你没背锅医院没赔钱。', statsEffect: { reputation: +10, safety: +10, support: +5, mental: +5 }, isRecommended: true, tip: '第三方鉴定打破私了困局。', },
+    ],
+  },
+  {
+    id: 'a7-media-ambush',
+    stage: '主治医师',
+    category: '网络暴力',
+    title: '门口的摄像机',
+    description: '下班出医院，话筒和摄像机怼过来："我们是电视台，有家属反映医疗过错，请回应。"红灯亮，路人围观。',
+    isRealCase: true,
+    realCaseRef: '多地医生被记者"突袭采访"真实经历',
+    imagePrompt: '中国医院门口傍晚时分，刚下班的年轻女医生穿着白大褂被举着话筒和摄像机的记者拦住，摄像机红灯亮着，围观群众在旁，医生表情错愕，新闻纪实风格',
+    options: [
+      { id: 'explain', label: '当镜头解释病情和经过', isDefault: true, outcome: '紧张中说的"确实处理可以更及时"被单独剪出。晚节目标题"医院承认处理不及时"。', statsEffect: { reputation: -20, legalRisk: +20, mental: -15 }, isRecommended: false, tip: '永远别在镜头前即兴发言。', },
+      { id: 'no-comment', label: '婉拒称请联系医院宣传科', isDefault: false, outcome: '你快步走进楼内通知宣传科。院方统一回复后你没成节目主角。', statsEffect: { safety: +10, support: +5, reputation: +2 }, isRecommended: true, tip: '"请联系宣传科"是最安全的一句话。', },
     ],
   },
 
@@ -541,160 +220,60 @@ export const allEvents: GameEvent[] = [
     id: 'c1-sustained-cyberbully',
     stage: '副主任医师',
     category: '网络暴力',
-    title: '七个账号的围猎',
-    description:
-      '你做了一台复杂肝胆手术。患者术后恢复不太理想（术前已充分告知风险），但患者家属不能接受，开始在短视频平台持续发布内容。不是一条视频，而是每天发——已经持续了两个月。15个账号发布了近百条视频，标题越来越离谱："某三甲医院副主任害死人不偿命""官官相护的医疗黑幕"。你向平台举报了48次，只有19条被处理。你的门诊量下降了60%。你开始害怕打开手机。',
+    title: '围猎',
+    description: '复杂肝胆手术后恢复不理想。家属在短视频平台持续发了两个月——15个账号近百条视频。举报48次仅删19条。门诊量降60%。你开始害怕看手机。',
     isRealCase: true,
-    imagePrompt:
-      "昏暗的卧室夜晚，中年男医生独自坐在床边低头看手机，手机冷光照亮他疲惫绝望的脸，墙上隐约可见多个社交媒体应用图标的阴影投射，孤独压抑的氛围",
-    realCaseRef: '周口市第六人民医院妇产科主任邵医生被网暴7个月后坠楼身亡（2025年8月）',options: [
-      {
-        id: 'suffer-alone',
-        label: '自己扛，继续举报，相信平台和正义',
-        outcome:
-          '你的心理状态急剧恶化。你开始失眠，上班时心不在焉，有一次差点开错了医嘱。妻子说你现在回家一句话都不说。你甚至开始想："是不是我不做医生了，这些事就没了？" 你的科室同事不知道你正在经历什么。',
-        statsEffect: { mental: -35, reputation: -15, safety: -5 },
-        isRecommended: false,
-        tip: '邵医生的悲剧告诉我们：孤独是对抗网暴的最大敌人。独自硬扛的终点可能是坠楼。你必须求助。',
-      },
-      {
-        id: 'legal-action',
-        label: '收集全部证据，聘请律师，向法院起诉对方侵犯名誉权，同时报警要求追究治安责任',
-        outcome:
-          '你找了专业处理医疗纠纷的律师。律师帮你固定了全部证据（包括对方的抖音主页录屏、播放量截图、评论截图），向法院提起了名誉权侵权诉讼。同时你向公安机关报案，提供了完整的证据链。法院立案后对方明显收敛了。诉讼周期很长，但这个行动本身让你重新获得了掌控感。',
-        statsEffect: { safety: +15, support: +5, mental: +5, legalRisk: -5 },
-        isRecommended: true,
-        tip: '法律行动的作用不只是赢官司，更是让你从"被动挨打"变成"主动反击"。北医三院薛红宇医生起诉网暴患者并胜诉，是最好的范例。',
-      },
-      {
-        id: 'hospital-support',
-        label: '向医院提交正式维权申请，要求医院出面发布声明、向平台投诉、提供法律援助',
-        outcome:
-          '你在科室主任陪同下，正式向院办和宣传科提交了情况说明和证据。院方研究后发布了正式声明："近期网络上关于我院某某医生的不实信息，经卫健委调查认定，该医生诊疗过程符合规范。对于持续发布不实信息的行为，我院已委托律师采取法律措施。" 声明发布后，大部分账号停止了更新。你的门诊量慢慢恢复。',
-        statsEffect: { reputation: +15, support: +10, mental: +10, safety: +5 },
-        isRecommended: true,
-        tip: '医院声明是舆情反转的最强武器。荥阳市人民医院的"教科书级声明"和山西兴县的"硬核撑腰"都是成功范例。但前提是：你必须主动向医院求助，而不是等医院来发现你的困境。',
-      },
+    realCaseRef: '周口六院妇产科主任邵医生被网暴7个月后坠楼（2025）',
+    imagePrompt: '昏暗的卧室夜晚，中年男医生独自坐在床边低头看手机，手机冷光照亮他疲惫绝望的脸，墙上隐约可见多个社交媒体应用图标的阴影投射，孤独压抑的氛围',
+    options: [
+      { id: 'suffer-alone', label: '自己扛继续举报相信平台', isDefault: true, outcome: '失眠、心不在焉、差点开错医嘱。妻子说你回家不说话。你想"是不是不干就没事了"。', statsEffect: { mental: -35, reputation: -15, safety: -5 }, isRecommended: false, tip: '邵医生一个人扛了7个月后坠楼。', },
+      { id: 'legal-action', label: '请律师起诉侵犯名誉权', isDefault: false, outcome: '律师固定全部证据向法院起诉并报案。诉讼周期虽长，但行动让你重新有了掌控感。', statsEffect: { safety: +15, support: +5, mental: +5, legalRisk: -5 }, isRecommended: true, tip: '法律行动让你从被动变主动。', },
+      { id: 'hospital-support', label: '正式申请医院出面发声明', isDefault: false, outcome: '院方声明"该医生诊疗合规，已委托律师"。大部分账号停更。门诊量逐渐恢复。', statsEffect: { reputation: +15, support: +10, mental: +10, safety: +5 }, isRecommended: true, tip: '医院声明是舆情反转最强武器。', },
     ],
   },
   {
     id: 'c2-health-commission',
     stage: '副主任医师',
     category: '制度博弈',
-    title: '卫健委来了',
-    description:
-      '一个患者家属持续向卫健委投诉你"过度医疗"。卫健委调查组来到医院，调取了相关病历，要求你当面说明诊疗依据。你对自己的诊疗有信心——每个决策都有指南依据。但调查组的提问方式让你很不舒服：他们似乎在预设你"有问题"。科主任私下告诉你，最近上面在抓"过度医疗"典型。',
+    title: '上面来人了',
+    description: '家属持续向卫健委投诉你过度医疗。调查组来院调病历要你当面说明。提问方式像预设你有问题。主任说最近在抓典型。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院会议室，几位穿着正装的工作人员坐在会议桌一侧正在审阅文件，对面一位医生正在认真回答询问，桌上摆放着病历资料和水杯，窗外柔和日光，专业的工作氛围，写实风格",
-    realCaseRef: '河北邯郸两医生被卫健委吊销执业证（2024年8月）',options: [
-      {
-        id: 'panic-explain',
-        label: '紧张地长篇大论解释每一个诊疗决策，情绪激动地辩护',
-        outcome:
-          '你说得越多，调查组记录越多。有些话在紧张状态下说出来不够严谨，反而给了对方"把柄"。调查组的调查报告中有一些被你情绪化表述"印证"的"问题"。虽然最终没有吊销执照，但你被给予"警告"处分，并记入医德档案。',
-        statsEffect: { reputation: -20, legalRisk: +20, mental: -15 },
-        isRecommended: false,
-        tip: '在行政调查面前，"说多错多"是真实存在的。你需要的是冷静和准备，不是即兴发挥。',
-      },
-      {
-        id: 'lawyer-up',
-        label: '在调查开始前就咨询律师，准备书面应答材料，在调查中保持冷静、简洁、只陈述事实',
-        outcome:
-          '你提前准备了完整的书面材料：每一项诊疗决策对应的指南引用、知情同意书复印件、病历摘要。调查组提问时，你平静地说"请参考我提交的书面材料第X页"。你的冷静和准备让调查组的态度明显转变。最终调查结论：诊疗行为符合规范，投诉不成立。',
-        statsEffect: { safety: +15, reputation: +10, mental: +5, legalRisk: -10 },
-        isRecommended: true,
-        tip: '面对行政调查，你有权请律师、有权准备书面材料、有权要求程序公正。不要被"上面来的人"吓到——他们也要依法办事。',
-      },
-      {
-        id: 'find-connections',
-        label: '通过关系找人疏通，"打个招呼"',
-        outcome:
-          '你托了一个在卫健委有熟人的老同学。对方口头答应"帮你问问"。但消息不知道怎么走漏了，调查组反而更加严格，"看看是谁在打招呼"——结果原本可以简单了结的调查变成了重点核查。你的老同学也因为这件事被领导提醒了。',
-        statsEffect: { reputation: -10, legalRisk: +15, mental: -10, support: -5 },
-        isRecommended: false,
-        tip: '在反腐高压态势下，"打招呼"可能适得其反。与其找关系，不如找律师。',
-      },
+    realCaseRef: '河北邯郸两医生被卫健委吊销执业证（2024）',
+    imagePrompt: '医院会议室内部，几位穿着正装的工作人员坐在会议桌一侧正在审阅文件，对面一位医生正在认真回答询问，桌上摆放着病历资料和水杯，窗外柔和日光，专业的工作氛围，写实风格',
+    options: [
+      { id: 'panic-explain', label: '紧张长篇大论逐条自证', isDefault: true, outcome: '说越多给越多"把柄"。虽未吊销但被警告处分，记入医德档案。', statsEffect: { reputation: -20, legalRisk: +20, mental: -15 }, isRecommended: false, tip: '在调查面前说多错多。', },
+      { id: 'lawyer-up', label: '提前找律师准备书面材料', isDefault: false, outcome: '你提交每项决策的指南依据和签字同意书。回答时"请看书面材料第X页"。结论：合规。', statsEffect: { safety: +15, reputation: +10, mental: +5, legalRisk: -10 }, isRecommended: true, tip: '你有权找律师、准备材料、要求程序公正。', },
+      { id: 'find-connections', label: '托人找关系打个招呼', isDefault: false, outcome: '消息走漏调查变严——"看看谁在打招呼"。同学也被领导提醒。', statsEffect: { reputation: -10, legalRisk: +15, mental: -10, support: -5 }, isRecommended: false, tip: '反腐高压下找关系反效果。找律师。', },
     ],
   },
   {
     id: 'c3-criminal-charge',
     stage: '副主任医师',
     category: '法律雷区',
-    title: '「医疗事故罪」',
-    description:
-      '你三年前治疗的一个患者，术后出现了严重并发症，虽然经过积极抢救保住了生命，但遗留了功能障碍。患者家属在咨询律师后，以"医疗事故罪"向公安机关报案。你今天收到了公安机关的《接受案件回执》——这意味着案件已被受理，你可能面临刑事调查。',
+    title: '立案通知书',
+    description: '三年前治疗的患者遗留功能障碍。家属以"医疗事故罪"报案。你收到公安局《接受案件回执》——刑事调查已启动。',
     isRealCase: true,
-    imagePrompt:
-      "特写镜头，一双医生的手颤抖着拿着一份公安局的接受案件回执文件，文件上清晰可见红色公章，背景是模糊的医院走廊，震惊和恐惧的氛围",
-    realCaseRef: '邯郸两医生被以"医疗事故罪"立案（2024）；阜阳抽脂死亡案两医生以医疗事故罪受审（2024）',options: [
-      {
-        id: 'panic',
-        label: '惊慌失措，试图联系患者家属"私了"',
-        outcome:
-          '你通过中间人联系患者家属，表示"愿意赔偿"。家属的律师嗅到了你的恐惧——赔偿金额从50万涨到200万。而且你"主动联系私了"的行为，将来在法庭上可能被解读为"心虚的表现"。',
-        statsEffect: { legalRisk: +25, mental: -20, reputation: -15, safety: -10 },
-        isRecommended: false,
-        tip: '刑事案件不能"私了"。你越慌乱，对方越有恃无恐。',
-      },
-      {
-        id: 'lawyer-immediately',
-        label: '立即聘请专业医疗纠纷律师，不单独与家属或警方沟通，由律师全权代理',
-        outcome:
-          '你找了一位专门处理医疗刑事案件的律师。律师详细审查了当年的全部病历和诊疗记录，确认你的诊疗符合规范。律师代你向公安机关提交了完整的证据材料，并申请了医疗损害鉴定。在等待鉴定期间，你照常上班，但因为有了律师的"防火墙"，你不需要直接面对家属和侦查人员的压力。',
-        statsEffect: { safety: +20, mental: +5, legalRisk: -10 },
-        isRecommended: true,
-        tip: '刑事立案不等于定罪。医疗事故罪的认定需要"严重不负责任"+"造成就诊人死亡或严重损害健康"。你的律师是你在这场战斗中最重要的人——不要省这个钱。',
-      },
-      {
-        id: 'cooperate-direct',
-        label: '自己直接配合公安调查，相信"清者自清"',
-        outcome:
-          '你配合做了笔录。但因为缺乏法律经验，你在回答中说了"可能当时处理得不够及时"——这句话被记入笔录。你本意是表达医学上的客观情况（有些并发症确实需要时间识别），但在法律语言中，"不够及时"等于"存在延误"。这句话后来在鉴定听证会上被反复引用。',
-        statsEffect: { legalRisk: +20, mental: -15, safety: -5 },
-        isRecommended: false,
-        tip: '医学语言和法律语言是两个世界。你说"病情变化快"——医生知道这是客观事实；但律师听到的是"你没有能力处理"。所有跟警方的沟通都必须有律师在场。',
-      },
+    realCaseRef: '邯郸两医生被以"医疗事故罪"立案（2024）',
+    imagePrompt: '特写镜头，一双医生的手颤抖着拿着一份公安局的接受案件回执文件，文件上清晰可见红色公章，背景是模糊的医院走廊，震惊和恐惧的氛围',
+    options: [
+      { id: 'panic', label: '赶紧联系家属协商赔偿', isDefault: true, outcome: '家属律师嗅到恐惧，赔偿从50万涨到200万。主动联系可能被解读为"心虚"。', statsEffect: { legalRisk: +25, mental: -20, reputation: -15, safety: -10 }, isRecommended: false, tip: '刑事案件不能私了。越慌越被动。', },
+      { id: 'lawyer-immediately', label: '立刻请律师全权代理处理', isDefault: false, outcome: '律师审查全部病历确认你合规，代你提交证据申请鉴定。有防火墙后你照常上班。', statsEffect: { safety: +20, mental: +5, legalRisk: -10 }, isRecommended: true, tip: '律师是你最重要的人——这个钱别省。', },
+      { id: 'cooperate-direct', label: '自己配合调查相信清者自清', isDefault: false, outcome: '做笔录说"可能处理不够及时"。医学客观描述在法律语言里等于"有延误"。被反复引用。', statsEffect: { legalRisk: +20, mental: -15, safety: -5 }, isRecommended: false, tip: '医学术语和法律语言是两个世界。', },
     ],
   },
   {
     id: 'c4-colleague-misconduct',
     stage: '副主任医师',
     category: '手术室边缘',
-    title: '手术台上的两难',
-    description:
-      '你主刀一台四级手术，麻醉医生是跟你关系不错的老同事。手术进行到一半，你注意到麻醉医生的反应有点慢——他昨晚似乎没休息好，刚才还在打哈欠。患者生命体征出现波动时，他没有第一时间发现和报告。你不得不暂停手术提醒他。术后患者恢复尚可，但你心里一直在纠结这件事。',
+    title: '台上的同事',
+    description: '你主刀四级手术，麻醉医生反应迟钝——像没睡好老打哈欠。患者生命体征波动时他没能及时报告。你不得不暂停提醒他。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院手术室，无影灯下正在进行手术，主刀医生抬头皱眉看向旁边的麻醉医生，麻醉医生神情疲惫打哈欠，监护仪屏幕在背景中闪动，紧张的手术氛围",
-    realCaseRef: '医疗团队内部知情不报的伦理困境；多地手术安全事故调查中"同事互不揭发"文化',options: [
-      {
-        id: 'ignore',
-        label: '算了，都是同事，患者也没出大事，就当没发生过',
-        outcome:
-          '三个月后，这位麻醉医生在另一台手术中出现了更严重的失误——因为疲劳和精神不集中，没有及时发现患者血氧下降，患者出现缺氧性脑损伤。事后调查时，如果你早报告你那次观察到的问题，也许悲剧可以避免。但你没有。在科室内部的病例讨论会上，你一直低着头。',
-        statsEffect: { mental: -20, reputation: -10, legalRisk: +15 },
-        isRecommended: false,
-        tip: '对同事的"善意沉默"可能是对下一个患者的"间接伤害"。医疗安全文化要求每个人都敢说出来。',
-      },
-      {
-        id: 'report-formal',
-        label: '正式向科主任和医务处报告，要求对麻醉医生进行能力评估',
-        outcome:
-          '科主任很重视，安排了麻醉科内部的能力评估和调整。麻醉医生被要求强制休假并接受健康检查（发现他有严重的睡眠呼吸暂停综合征）。他对你很不满，在同事中说你"背后捅刀子"。但你的立场是明确的：患者安全优先。主任在更大的范围内肯定了你的做法，说"这才是对生命负责的态度"。',
-        statsEffect: { reputation: +10, support: +8, mental: -5, safety: +5 },
-        isRecommended: true,
-        tip: '报告同事的问题可能会伤害你们的关系，但不敢报告可能会害死患者。在"人情"和"人命"之间，这个选择虽然艰难但答案应该是明确的。',
-      },
-      {
-        id: 'talk-privately',
-        label: '私下约麻醉医生出来聊聊，建议他自己去看一下医生或者调整状态',
-        outcome:
-          '麻醉医生听了你的话，沉默了一会儿。他说最近家里出了一些事，确实状态很差。他去看了医生，请了一周假调整。但你心里清楚——如果下次再出现这种情况，而你没有正式报告，责任就不只是他的了。',
-        statsEffect: { mental: +3, support: +3, safety: -3 },
-        isRecommended: false,
-        tip: '私下沟通解决了眼前问题，但没有解决系统性问题。如果将来出事，调查会问：你知道他状态不好，为什么没有报告？',
-      },
+    realCaseRef: '医疗团队内部"知情不报"伦理困境；多地手术安全事故调查',
+    imagePrompt: '中国医院手术室，无影灯下正在进行手术，主刀医生抬头皱眉看向旁边的麻醉医生，麻醉医生神情疲惫打哈欠，监护仪屏幕在背景中闪动，紧张的手术氛围',
+    options: [
+      { id: 'ignore', label: '算了患者也没出大碍', isDefault: true, outcome: '三月后他因疲劳漏看血氧下降，患者缺氧脑损伤。病例讨论上你低头沉默。', statsEffect: { mental: -20, reputation: -10, legalRisk: +15 }, isRecommended: false, tip: '沉默可能是下一个患者的间接伤害。', },
+      { id: 'report-formal', label: '正式报告主任和医务处', isDefault: false, outcome: '他被安排强制休假和体检——严重睡眠呼吸暂停。他对你不满但主任肯定你"对生命负责"。', statsEffect: { reputation: +10, support: +8, mental: -5, safety: +5 }, isRecommended: true, tip: '报告同事伤关系，不报告害人。', },
+      { id: 'talk-privately', label: '私下约他聊聊建议他看医生', isDefault: false, outcome: '他说家里出事状态很差，看了医生请了假。但你清楚：下次再犯而你没报告，责任就不只是他的了。', statsEffect: { mental: +3, support: +3, safety: -3 }, isRecommended: false, tip: '私下解决眼前但解决不了系统问题。', },
     ],
   },
   {
@@ -702,30 +281,13 @@ export const allEvents: GameEvent[] = [
     stage: '副主任医师',
     category: '病房风暴',
     title: '失控的奶奶',
-    description:
-      '一个3岁的患儿因为肺炎住院，血管很细，护士扎了两针才成功。孩子的奶奶突然情绪失控，一把推开护士，喊道："你们会不会扎针？拿我孙子做实验呢？" 她伸手打掉了治疗盘，针头、棉签散落一地。护士在哭。孩子吓得大哭。爷爷在旁边帮腔："今天不给我们一个说法，谁也别想走！"',
+    description: '3岁患儿血管细，护士扎了两针。奶奶突然推开护士打掉治疗盘——针头散一地。护士在哭，孩子大哭，爷爷帮腔。',
     isRealCase: true,
-    imagePrompt:
-      "中国医院儿科病房，一位老年女性奶奶情绪失控推开年轻护士，护士摔倒在地，治疗盘针头散落一地，小孩在病床上大哭，爷爷在旁帮腔，混乱的冲突场面",
-    realCaseRef: '深圳市儿童医院伤医事件；广西玉林桂南医院护士被患儿家长扇耳光事件',options: [
-      {
-        id: 'appease',
-        label: '道歉安抚：「不好意思奶奶，是我们技术不好，我马上换最好的护士来扎」',
-        outcome:
-          '奶奶虽然暂时安静了，但你"承认技术不好"的话被爷爷录了音。后来他们到医务科投诉时播放了这段录音："你们医生自己都承认技术不好了。" 你本意是安抚，却被当成了"证据"。而且你当着护士的面说她"技术不好"，严重打击了团队的士气——那个护士后来申请调离了儿科。',
-        statsEffect: { legalRisk: +15, support: -15, mental: -10 },
-        isRecommended: false,
-        tip: '绝对不要在纠纷中说"是我们不好""我们技术不行"之类的话。你以为是谦逊，对方当成认罪。',
-      },
-      {
-        id: 'firm-boundary',
-        label: '挡在护士前面：「孩子的血管确实细，扎两针很正常。但是您动手推人、打掉治疗盘，这不行。如果再这样，我只能请保安了。」',
-        outcome:
-          '奶奶被你的气势镇住了。爷爷还在嚷嚷，但声音小了很多。你说完之后立即让护士先去休息，自己亲自去给患儿扎针（一针成功）。然后你坐下来跟奶奶说："我理解您心疼孙子，但您推的那一下，换做您女儿被人推，您会怎么想？" 奶奶沉默了一会儿，去护士站给护士道了歉。',
-        statsEffect: { reputation: +10, support: +15, safety: +10, mental: +5 },
-        isRecommended: true,
-        tip: '保护团队成员是第一位的。深圳市儿童医院副院长麻晓鹏说过："对待伤医事件必须零容忍。"但"零容忍"不意味着激化矛盾——你可以在划清底线的同时给人台阶下。',
-      },
+    realCaseRef: '深圳市儿童医院伤医事件；广西桂南医院护士被扇耳光',
+    imagePrompt: '中国医院儿科病房，一位老年女性奶奶情绪失控推开年轻护士，护士摔倒在地，治疗盘针头散落一地，小孩在病床上大哭，爷爷在旁帮腔，混乱的冲突场面',
+    options: [
+      { id: 'appease', label: '道歉安抚说我们技术不好', isDefault: true, outcome: '爷爷录音当"证据"拿到医务科。护士因你当众说她"技术不好"申请调离儿科。', statsEffect: { legalRisk: +15, support: -15, mental: -10 }, isRecommended: false, tip: '"是我们不好"在纠纷中是认罪。', },
+      { id: 'firm-boundary', label: '挡在护士前再动手就报警了', isDefault: false, outcome: '奶奶被镇住。你亲自一针扎上后说"心疼孙子理解，但推那一下——换您女儿被推呢？"她沉默后去道歉。', statsEffect: { reputation: +10, support: +15, safety: +10, mental: +5 }, isRecommended: true, tip: '保护团队第一。底线坚定但给台阶。', },
     ],
   },
   {
@@ -733,61 +295,13 @@ export const allEvents: GameEvent[] = [
     stage: '副主任医师',
     category: '法律雷区',
     title: '超说明书的代价',
-    description:
-      '你为一个罕见病患者使用了一种超说明书用药（off-label use）——这在你的专业领域是公认有效的，国内外的指南都有推荐，但该药物在中国尚未获批该适应症。你按照规范让患者签了超说明书用药知情同意书。不幸的是，患者出现了严重不良反应。家属聘请的律师抓住"超说明书"这一点不放，指控你"违法用药"。',
+    description: '你为罕见病患者超说明书用药——指南推荐但中国未获批该适应症，已签知情同意。出现严重不良反应后，律师抓住"超说明书"指控你违法。',
     isRealCase: true,
-    imagePrompt:
-      "医药专业场景，一位穿白大褂的医生表情忧虑地看着手中的药品说明书和病历，桌上散落着医学指南书籍和知情同意文件，窗外柔和光线，写实摄影风格，表现医疗决策的复杂性",
-    realCaseRef: '多地超说明书用药纠纷案例；《医师法》第29条关于超说明书用药的规定',options: [
-      {
-        id: 'panic-settle',
-        label: '担心事情闹大，同意赔偿和解',
-        outcome:
-          '你同意赔偿30万和解。但这件事在圈内传开了——"某某医生超说明书用药出了事赔了30万"。你的专业声誉受损，同行对你避之不及。更糟的是，这个和解被当作"承认有过错"的记录，在医保考核中影响了你的资质。',
-        statsEffect: { reputation: -25, legalRisk: -10, mental: -15 },
-        isRecommended: false,
-        tip: '超说明书用药的纠纷不能简单地用"赔钱了事"处理——这会影响整个专业领域对超说明书用药的共识。',
-      },
-      {
-        id: 'defend-guidelines',
-        label: '坚持法律抗辩：提供国内外指南证据、知情同意书、伦理委员会备案（如有），证明符合《医师法》第29条',
-        outcome:
-          '你整理了完整的证据链：①国内外诊疗指南推荐该用法；②患者签署的知情同意书（详细说明了超说明书使用的风险）；③你所在科室的该用药方案曾在药事管理委员会备案。你的律师提交了一份30页的答辩书。司法鉴定结论为：用药选择符合当前医学共识，不良反应属于不可预见的药物风险。法院驳回了患者的诉讼请求。',
-        statsEffect: { reputation: +15, safety: +20, legalRisk: -15, mental: +10 },
-        isRecommended: true,
-        tip: '《医师法》第29条明确规定：在尚无有效或者更好治疗手段等特殊情况下，医师取得患者明确知情同意后，可以采用药品说明书中未明确但具有循证医学证据的用法。法律保护合规的超说明书用药——前提是你做足了流程。',
-      },
-    ],
-  },
-  {
-    id: 'a7-media-ambush',
-    stage: '主治医师',
-    category: '网络暴力',
-    title: '门口的记者',
-    description:
-      '医院门口突然出现了几个举着话筒和摄像机的人。一个自称"民生记者"的人拦住刚下班的你："我们是某某电视台的，有患者家属向我们反映，你们医院对XX患者存在医疗过错，请问你怎么回应？"你完全没有准备，身上的白大褂还没脱。摄像机红灯亮着，旁边已经有人在围观。',
-    isRealCase: true,
-    imagePrompt:
-      "中国医院门口傍晚时分，刚下班的年轻女医生穿着白大褂被举着话筒和摄像机的记者拦住，摄像机红灯亮着，围观群众在旁，医生表情错愕，新闻纪实风格",
-    realCaseRef: '多地医生被记者"突袭采访"的经历；医院宣传科对媒体应对的标准培训',options: [
-      {
-        id: 'explain',
-        label: '出于清白，当着镜头解释病情和治疗经过',
-        outcome:
-          '你说了一大段医学术语来解释，紧张之下有些表述不够严谨。当晚节目播出，你的采访被剪辑了——保留了你"确实有一些处理可以更及时"这句话，删掉了前后的医学背景。节目标题是"医院承认处理不及时"。你后悔莫及。',
-        statsEffect: { reputation: -20, legalRisk: +20, mental: -15 },
-        isRecommended: false,
-        tip: '永远不要在镜头前即兴发言。你没有接受过媒体训练，说出来的话会被任意剪辑。',
-      },
-      {
-        id: 'no-comment',
-        label: '礼貌但坚决：「抱歉，关于患者的具体情况，我没有获得授权不能对外透露。请联系医院宣传科。」然后离开',
-        outcome:
-          '记者追了几步，但你快步走进医院大楼。你立即打电话告知宣传科和医务科。宣传科统一回复了媒体，表明"目前没有证据显示医院存在过错，如有质疑请通过正规法律途径"。你没有成为节目的主角。虽然那段"医生不回应"的镜头一闪而过，但没有任何你的言论被剪辑利用。',
-        statsEffect: { safety: +10, support: +5, reputation: +2 },
-        isRecommended: true,
-        tip: '"请联系医院宣传科"——这是面对媒体时最安全的一句话。你不是发言人，你没有义务回答。任何未经医院授权的对外讲话都可能给你带来麻烦。',
-      },
+    realCaseRef: '《医师法》第29条；多地超说明书用药纠纷',
+    imagePrompt: '医药专业场景，一位穿白大褂的医生表情忧虑地看着手中的药品说明书和病历，桌上散落着医学指南书籍和知情同意文件，窗外柔和光线，写实摄影风格，表现医疗决策的复杂性',
+    options: [
+      { id: 'panic-settle', label: '趁事没闹大同意赔钱和解', isDefault: true, outcome: '赔30万。圈内传开"某某用药出事赔钱"。同行避开你。记录影响医保考核。', statsEffect: { reputation: -25, legalRisk: -10, mental: -15 }, isRecommended: false, tip: '超说明书纠纷赔钱影响整个领域共识。', },
+      { id: 'defend-guidelines', label: '以指南和知情同意书为证据', isDefault: false, outcome: '你提交指南、知情同意书、药事会备案。律师递交30页答辩。鉴定：用药符合共识。法院驳回。', statsEffect: { reputation: +15, safety: +20, legalRisk: -15, mental: +10 }, isRecommended: true, tip: '《医师法》第29条保护合规的超说明书用药。', },
     ],
   },
 ]
