@@ -23,8 +23,8 @@ export function EndingScreen({
   totalChoices,
   onRestart,
 }: EndingScreenProps) {
-  const [selectedAmount, setSelectedAmount] = useState<string | null>(null)
-  const [showSupportCelebration, setShowSupportCelebration] = useState(false)
+  const [paidAmount, setPaidAmount] = useState<string | null>(null)
+  const [showFlowerThank, setShowFlowerThank] = useState(false)
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 overflow-auto">
       <div className="max-w-2xl mx-auto px-4 py-10 space-y-6">
@@ -92,6 +92,89 @@ export function EndingScreen({
           </div>
         </div>
 
+        {/* Ending hint */}
+        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-4 text-center space-y-2">
+          <p className="text-slate-300 text-sm font-medium">你只体验了 <span className="text-amber-400 font-bold text-lg">1/8</span> 种结局</p>
+          <p className="text-slate-500 text-xs leading-relaxed">
+            每个选择都在暗中标好了代价。<br />
+            换一种决策，换一个命运。<br />
+            再值一次班，试试不同的路。
+          </p>
+        </div>
+
+        {/* Restart */}
+        <button
+          onClick={onRestart}
+          className="w-full py-4 rounded-xl bg-emerald-700 text-white font-bold text-lg hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-lg shadow-emerald-900/30"
+        >
+          再值一次班
+        </button>
+
+        {/* Support */}
+        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-4 space-y-4">
+          <p className="text-slate-400 text-sm text-center">觉得有点意思？请作者喝杯咖啡 ☕️</p>
+
+          {/* Flower celebration */}
+          {showFlowerThank && (
+            <Celebration
+              onDone={() => setShowFlowerThank(false)}
+            />
+          )}
+
+          {/* Amount buttons - always visible (unless showing QR codes for paid amount) */}
+          {!paidAmount && (
+            <div className="flex gap-2 justify-center flex-wrap">
+              {AMOUNTS.map((a) => (
+                <button
+                  key={a}
+                  onClick={() => {
+                    if (a === '花花') {
+                      setShowFlowerThank(true)
+                    } else {
+                      setPaidAmount(a)
+                    }
+                  }}
+                  className="px-4 py-2 rounded-lg bg-slate-700/50 border border-slate-600/50 text-amber-300 text-sm font-medium hover:bg-slate-700 hover:border-amber-600/50 active:scale-95 transition-all"
+                >
+                  {a}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Thank you message for 花花 */}
+          {showFlowerThank && (
+            <p className="text-emerald-400 text-xs text-center animate-pulse">谢谢你的花花 🌸</p>
+          )}
+
+          {/* QR codes for paid amounts */}
+          {paidAmount && (
+            <>
+              <div className="text-center">
+                <p className="text-slate-400 text-sm">
+                  你选了 <span className="text-amber-400 font-bold">{paidAmount}</span>，扫码就行
+                </p>
+                <button
+                  onClick={() => setPaidAmount(null)}
+                  className="text-slate-600 text-xs mt-1 hover:text-slate-400"
+                >
+                  重新选择
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="text-center space-y-1">
+                  <img src={`${import.meta.env.BASE_URL}wechat-pay.jpg`} alt="微信" className="w-full rounded-lg" />
+                  <p className="text-slate-500 text-[10px]">微信</p>
+                </div>
+                <div className="text-center space-y-1">
+                  <img src={`${import.meta.env.BASE_URL}alipay.jpg`} alt="支付宝" className="w-full rounded-lg" />
+                  <p className="text-slate-500 text-[10px]">支付宝</p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
         {/* Decision history */}
         <div className="space-y-2">
           <h2 className="text-slate-400 text-sm font-semibold">决策回顾</h2>
@@ -121,84 +204,6 @@ export function EndingScreen({
               </p>
             </div>
           ))}
-        </div>
-
-        {/* Ending hint */}
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-4 text-center space-y-2">
-          <p className="text-slate-300 text-sm font-medium">你只体验了 <span className="text-amber-400 font-bold text-lg">1/8</span> 种结局</p>
-          <p className="text-slate-500 text-xs leading-relaxed">
-            每个选择都在暗中标好了代价。<br />
-            换一种决策，换一个命运。<br />
-            再值一次班，试试不同的路。
-          </p>
-        </div>
-
-        {/* Restart */}
-        <button
-          onClick={onRestart}
-          className="w-full py-4 rounded-xl bg-emerald-700 text-white font-bold text-lg hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-lg shadow-emerald-900/30"
-        >
-          再值一次班
-        </button>
-
-        {/* Support */}
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-4 space-y-4">
-          {!selectedAmount ? (
-            <>
-              <p className="text-slate-400 text-sm text-center">觉得有点意思？请作者喝杯咖啡 ☕️</p>
-              <div className="flex gap-2 justify-center flex-wrap">
-                {AMOUNTS.map((a) => (
-                  <button
-                    key={a}
-                    onClick={() => setShowSupportCelebration(true)}
-                    className="px-4 py-2 rounded-lg bg-slate-700/50 border border-slate-600/50 text-amber-300 text-sm font-medium hover:bg-slate-700 hover:border-amber-600/50 active:scale-95 transition-all"
-                  >
-                    {a}
-                  </button>
-                ))}
-                {showSupportCelebration && (
-                  <Celebration
-                    onDone={() => {
-                      setShowSupportCelebration(false)
-                      setSelectedAmount('花花')
-                    }}
-                  />
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="text-center">
-                <p className="text-slate-400 text-sm">
-                  你选了 <span className="text-amber-400 font-bold">{selectedAmount}</span>，扫码就行
-                </p>
-                <button
-                  onClick={() => setSelectedAmount(null)}
-                  className="text-slate-600 text-xs mt-1 hover:text-slate-400"
-                >
-                  重新选择
-                </button>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="text-center space-y-1">
-                  <img
-                    src={`${import.meta.env.BASE_URL}wechat-pay.jpg`}
-                    alt="微信赞赏"
-                    className="w-full rounded-lg"
-                  />
-                  <p className="text-slate-500 text-[10px]">微信</p>
-                </div>
-                <div className="text-center space-y-1">
-                  <img
-                    src={`${import.meta.env.BASE_URL}alipay.jpg`}
-                    alt="支付宝"
-                    className="w-full rounded-lg"
-                  />
-                  <p className="text-slate-500 text-[10px]">支付宝</p>
-                </div>
-              </div>
-            </>
-          )}
         </div>
 
         <p className="text-center text-slate-700 text-[10px]">
