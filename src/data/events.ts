@@ -263,22 +263,7 @@ export const allEvents: GameEvent[] = [
       { id: 'accept-grace', label: '微笑说都是为了病人好', isDefault: true, outcome: '家属红了眼眶。之后他成了病房里帮你维持秩序的"编外助手"。隔壁床家属有意见他先帮你劝。', statsEffect: { reputation: +8, mental: +5, support: +3 }, isRecommended: true, tip: '', },
     ],
   },
-  {
-    id: 'a9-mentor',
-    stage: '住院总',
-    category: '温暖瞬间',
-    title: '老主任的托付',
-    description: '退休前老主任把你叫到办公室："最难的这个病人想交给你。你不一样，你是真把病人当人看。"',
-    isRealCase: true,
-    realCaseRef: '医生传承中的温情时刻；医学教育中的"传帮带"传统',
-    minStats: { reputation: 60, support: 45 },
-    imagePrompt: '医院办公室内，一位头发花白的老主任微笑着将病历递给年轻主治医生，眼神中充满信任和期许，窗外傍晚余晖，传承与信任的温暖氛围，竖屏构图',
-    options: [
-      { id: 'accept-humble', label: '接下请主任详细交接病情', isDefault: true, outcome: '主任花了半小时把细节全交代了。你接手后病人恢复顺利。主任退休前来看最后一眼，对你竖了大拇指。', statsEffect: { reputation: +10, support: +8, mental: +5 }, isRecommended: true, tip: '', },
-    ],
-  },
 
-  // ========== 住院总阶段 ==========
   {
     id: 'c1-sustained-cyberbully',
     stage: '住院总',
@@ -383,18 +368,4 @@ export const allEvents: GameEvent[] = [
     ],
   },
 
-  // 主治医师 · 温暖瞬间
-  {
-    id: 'c7-return',
-    stage: '主治医师',
-    category: '温暖瞬间',
-    title: '十年后的鞠躬',
-    description: '门诊，一个年轻人带孩子进来对你深深鞠躬："医生，十年前您救了我妈。今天带儿子来——看看救命恩人长什么样。"',
-    isRealCase: true,
-    minStats: { reputation: 65, mental: 50 },
-    imagePrompt: '医院门诊诊室，一个年轻父亲带着小男孩对着中年医生深深鞠躬，医生表情感动眼含泪光，窗外阳光温暖洒入，医患真情动人瞬间，竖屏构图',
-    options: [
-      { id: 'humble', label: '扶起他眼湿了蹲下看孩子', isDefault: true, outcome: '小男孩怯怯说"谢谢叔叔救奶奶"。你蹲下摸摸他头。那一下午你看每个病人都多了几分耐心。', statsEffect: { reputation: +10, mental: +10 }, isRecommended: true, tip: '', },
-    ],
-  },
 ]
